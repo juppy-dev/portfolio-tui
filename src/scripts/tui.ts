@@ -91,9 +91,15 @@ const THEMES = [
   'green-phosphor',
 ];
 
+// Display names where the data-theme key differs from the friendly label.
+const THEME_LABELS: Record<string, string> = {
+  andromeda: 'tokyo-nebula',
+};
+
 function syncThemeLabel(): void {
   const label = document.querySelector('[data-theme-label]');
-  if (label) label.textContent = document.documentElement.dataset.theme ?? THEMES[0];
+  const theme = document.documentElement.dataset.theme ?? THEMES[0];
+  if (label) label.textContent = THEME_LABELS[theme] ?? theme;
 }
 
 function cycleTheme(): void {
