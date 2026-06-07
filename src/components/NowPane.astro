@@ -16,7 +16,19 @@ const now = await getNow();
       {now.rows.map((row, i) => (
         <>
           <dt style={`color: var(--${cycleColor(i)})`}>{row.key}</dt>
-          <dd>{row.value}</dd>
+          <dd>
+            {row.url ? (
+              <a class="now-link" href={row.url} target="_blank" rel="noopener">
+                {row.icon && <Icon name={row.icon} size={13} />}
+                {row.value}
+              </a>
+            ) : (
+              <span class="now-value">
+                {row.icon && <Icon name={row.icon} size={13} />}
+                {row.value}
+              </span>
+            )}
+          </dd>
         </>
       ))}
     </dl>

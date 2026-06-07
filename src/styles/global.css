@@ -554,6 +554,33 @@ kbd {
   margin: 0;
 }
 
+.now-value,
+.now-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+}
+
+.now-link {
+  color: var(--cyan);
+  text-decoration: none;
+  transition: color 150ms ease;
+}
+
+.now-link::after {
+  content: ' ↗';
+  font-size: 0.85em;
+}
+
+.now-link:hover {
+  color: var(--fg);
+}
+
+/* brand glyphs in now rows inherit the row's value color, except links */
+.now-value svg {
+  color: var(--green);
+}
+
 /* ---- tech pane: one tinted box per category, one hue per category ---- */
 .tech-group {
   background: color-mix(in srgb, var(--gc) 7%, transparent);
