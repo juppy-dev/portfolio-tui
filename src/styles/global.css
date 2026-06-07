@@ -710,6 +710,12 @@ dialog textarea:focus {
     min-height: 100dvh;
   }
 
+  /* five sections don't fit one row on a phone */
+  .tabs {
+    flex-wrap: wrap;
+    row-gap: 4px;
+  }
+
   .grid {
     grid-template-columns: 1fr;
     grid-template-rows: none;
