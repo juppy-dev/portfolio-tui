@@ -193,6 +193,43 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
+// ---- boot sequence ----
+const BOOT_LINES = [
+  'mounting panes………… ok',
+  'loading content…… ok',
+  'applying theme……… ok',
+  'ready.',
+];
+
+async function boot(): Promise<void> {
+  const overlay = document.querySelector<HTMLElement>('#boot');
+  if (!overlay) return;
+  // The inline head script already added .no-boot for repeat visits
+  // and prefers-reduced-motion; honor it here too.
+  if (document.documentElement.classList.contains('no-boot')) {
+    overlay.remove();
+    return;
+  }
+  sessionStorage.setItem('booted', '1');
+
+  let skipped = false;
+  const skip = () => {
+    skipped = true;
+    overlay.remove();
+  };
+  overlay.addEventListener('click', skip, { once: true });
+  document.addEventListener('keydown', skip, { once: true });
+
+  const pre = overlay.querySelector('pre')!;
+  for (const line of BOOT_LINES) {
+    if (skipped) return;
+    pre.textContent += line + '\n';
+    await new Promise((r) => setTimeout(r, 350));
+  }
+  if (!skipped) overlay.remove();
+}
+
 // ---- init ----
 focusPane(0);
 syncThemeLabel();
+boot();
