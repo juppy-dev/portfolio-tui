@@ -1,0 +1,17 @@
+---
+import { getHero } from '../lib/content';
+
+const hero = await getHero();
+---
+
+{
+  hero && (
+    <section class="hero" aria-label="juppy.dev">
+      <pre class="hero-art" aria-hidden="true">{hero.art}</pre>
+      <span class="hero-art-fallback">juppy.dev</span>
+      <p class="hero-tagline">
+        $ echo "hello@juppy.dev" <span class="accent">— {hero.tagline}</span>
+      </p>
+    </section>
+  )
+}

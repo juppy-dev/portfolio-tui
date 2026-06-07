@@ -9,6 +9,7 @@ import WorkPane from '../components/WorkPane.astro';
 import ContactDialog from '../components/ContactDialog.astro';
 import HelpDialog from '../components/HelpDialog.astro';
 import Icon from '../components/Icon.astro';
+import Hero from '../components/Hero.astro';
 import { getAbout, getTech } from '../lib/content';
 import { cycleColor } from '../lib/palette';
 
@@ -47,6 +48,8 @@ const title = `${user}@portfolio`;
       </header>
 
       <main class="grid">
+        <Hero />
+
         <Pane title="about" id="about" icon="user">
           {about.intro.split(/\n{2,}/).map((para) => (
             <p class="prose">{para.replace(/\n/g, ' ')}</p>
