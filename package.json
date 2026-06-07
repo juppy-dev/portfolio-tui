@@ -6,11 +6,14 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview",
+    "preview": "npm run build && wrangler dev",
     "test": "vitest run",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "generate-types": "wrangler types",
+    "deploy": "npm run build && wrangler deploy"
   },
   "dependencies": {
+    "@astrojs/cloudflare": "^13.6.1",
     "@astrojs/markdoc": "^1.0.6",
     "@astrojs/react": "^5.0.7",
     "@fontsource/jetbrains-mono": "^5.2.8",
@@ -23,6 +26,10 @@
   "devDependencies": {
     "@playwright/test": "^1.60.0",
     "typescript": "^6.0.3",
-    "vitest": "^4.1.8"
+    "vitest": "^4.1.8",
+    "wrangler": "^4.98.0"
+  },
+  "overrides": {
+    "vite": "^7"
   }
 }
