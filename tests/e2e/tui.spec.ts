@@ -28,7 +28,9 @@ test('number keys switch work-pane tabs', async ({ page }) => {
 });
 
 test('j/k moves selection and Enter expands details', async ({ page }) => {
-  await page.locator('#pane-work').click();
+  // Click the pane's padding corner, not the center — the center can land on
+  // an entry (which would pre-select it) depending on viewport-driven layout.
+  await page.locator('#pane-work').click({ position: { x: 8, y: 8 } });
   await page.keyboard.press('j');
   const first = page.locator('[data-tab-panel="projects"] [data-entry]').first();
   await expect(first).toHaveClass(/selected/);
