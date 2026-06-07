@@ -29,13 +29,23 @@ test('vitals heatmap renders intensity cells', async ({ page }) => {
   expect(await page.locator('.hm-cell').count()).toBeGreaterThan(10);
 });
 
-test('keys 4 and 5 reach certification and education sections', async ({ page }) => {
+test('key 4 reaches certification; education lives there as a category', async ({ page }) => {
   await page.keyboard.press('4');
-  await expect(page.locator('[data-tab-panel="certification"]')).toBeVisible();
-  await expect(page.locator('[data-tab-panel="certification"]')).toContainText('AWS');
-  await page.keyboard.press('5');
-  await expect(page.locator('[data-tab-panel="education"]')).toBeVisible();
-  await expect(page.locator('[data-tab-panel="certification"]')).toBeHidden();
+  const panel = page.locator('[data-tab-panel="certification"]');
+  await expect(panel).toBeVisible();
+  await expect(panel).toContainText('AWS');
+  // education is the last subnav category in the certification panel
+  await panel.locator('[data-sub="cert-edu"] .entry-line').click();
+  await expect(page.locator('[data-sub-panel="cert-edu"]')).toBeVisible();
+  await expect(page.locator('[data-sub-panel="cert-edu"]')).toContainText('University');
+});
+
+test('highlights are grouped by category in a subnav', async ({ page }) => {
+  await page.keyboard.press('3');
+  const panel = page.locator('[data-tab-panel="highlights"]');
+  await expect(panel.locator('.subnav [data-entry]').first()).toContainText('engineering');
+  await panel.locator('.subnav [data-entry]', { hasText: 'leadership' }).locator('.entry-line').click();
+  await expect(panel.locator('.sub-content:visible')).toContainText('Mentored');
 });
 
 test('status bar clock shows the time', async ({ page }) => {

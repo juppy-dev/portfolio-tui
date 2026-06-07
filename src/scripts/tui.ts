@@ -17,7 +17,7 @@ function focusPane(i: number): void {
 panes.forEach((p, i) => p.addEventListener('click', () => focusPane(i)));
 
 // ---- tabs ----
-const TAB_ORDER = ['projects', 'experience', 'highlights', 'certification', 'education'];
+const TAB_ORDER = ['projects', 'experience', 'highlights', 'certification'];
 const tabButtons = [...document.querySelectorAll<HTMLButtonElement>('[data-tab]')];
 
 function activeTab(): string {
@@ -44,6 +44,16 @@ function visibleEntries(): HTMLElement[] {
   );
 }
 
+/** Show the sub-content matching a subnav entry within its tab panel. */
+function revealSub(entry: HTMLElement): void {
+  const sub = entry.dataset.sub;
+  if (!sub) return;
+  entry
+    .closest<HTMLElement>('[data-tab-panel]')
+    ?.querySelectorAll<HTMLElement>('[data-sub-panel]')
+    .forEach((p) => (p.hidden = p.dataset.subPanel !== sub));
+}
+
 function moveSelection(delta: number): void {
   const entries = visibleEntries();
   if (entries.length === 0) {
@@ -54,19 +64,12 @@ function moveSelection(delta: number): void {
   const next = Math.min(Math.max(current + delta, 0), entries.length - 1);
   entries.forEach((el, i) => el.classList.toggle('selected', i === next));
   entries[next].scrollIntoView({ block: 'nearest' });
+  revealSub(entries[next]);
 }
 
-function toggleEntry(entry: HTMLElement): void {
-  const details = entry.querySelector<HTMLElement>('[data-entry-details]');
-  const line = entry.querySelector<HTMLElement>('.entry-line');
-  if (!details) return;
-  details.hidden = !details.hidden;
-  line?.setAttribute('aria-expanded', String(!details.hidden));
-}
-
-function toggleSelected(): void {
+function revealSelected(): void {
   const selected = visibleEntries().find((el) => el.classList.contains('selected'));
-  if (selected) toggleEntry(selected);
+  if (selected) revealSub(selected);
 }
 
 document.querySelectorAll<HTMLElement>('[data-entry] .entry-line').forEach((line) =>
@@ -75,7 +78,7 @@ document.querySelectorAll<HTMLElement>('[data-entry] .entry-line').forEach((line
     focusPane(panes.indexOf(paneEl));
     const entry = line.closest<HTMLElement>('[data-entry]')!;
     visibleEntries().forEach((el) => el.classList.toggle('selected', el === entry));
-    toggleEntry(entry);
+    revealSub(entry);
   })
 );
 
@@ -158,7 +161,6 @@ document.addEventListener('keydown', (e) => {
     case '2':
     case '3':
     case '4':
-    case '5':
       switchTab(TAB_ORDER[Number(e.key) - 1]);
       break;
     case 'j':
@@ -174,7 +176,7 @@ document.addEventListener('keydown', (e) => {
     case 'Enter': {
       // Native activation owns Enter when a button/link is focused.
       if ((e.target as HTMLElement).closest?.('button, a')) break;
-      toggleSelected();
+      revealSelected();
       break;
     }
     case 'c':

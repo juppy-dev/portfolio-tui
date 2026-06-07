@@ -27,32 +27,35 @@ test('number keys switch work-pane tabs', async ({ page }) => {
   await expect(page.locator('[data-tab-panel="projects"]')).toBeVisible();
 });
 
-test('j/k moves selection and Enter expands details', async ({ page }) => {
+test('j/k moves the subnav selection and reveals the matching content', async ({ page }) => {
   // Click the pane's padding corner, not the center — the center can land on
   // an entry (which would pre-select it) depending on viewport-driven layout.
   await page.locator('#pane-work').click({ position: { x: 8, y: 8 } });
+  const entries = page.locator('[data-tab-panel="projects"] [data-entry]');
+  // first item is pre-selected at render; j moves to the second
   await page.keyboard.press('j');
-  const first = page.locator('[data-tab-panel="projects"] [data-entry]').first();
-  await expect(first).toHaveClass(/selected/);
-  await page.keyboard.press('Enter');
-  await expect(first.locator('[data-entry-details]')).toBeVisible();
-  await page.keyboard.press('Enter');
-  await expect(first.locator('[data-entry-details]')).toBeHidden();
+  await expect(entries.nth(1)).toHaveClass(/selected/);
+  await expect(page.locator('[data-sub-panel="proj-1"]')).toBeVisible();
+  await expect(page.locator('[data-sub-panel="proj-0"]')).toBeHidden();
+  await page.keyboard.press('k');
+  await expect(entries.nth(0)).toHaveClass(/selected/);
+  await expect(page.locator('[data-sub-panel="proj-0"]')).toBeVisible();
 });
 
-test('clicking an entry expands it', async ({ page }) => {
-  const first = page.locator('[data-tab-panel="projects"] [data-entry]').first();
-  await first.locator('.entry-line').click();
-  await expect(first.locator('[data-entry-details]')).toBeVisible();
+test('clicking a subnav item reveals its content', async ({ page }) => {
+  const second = page.locator('[data-tab-panel="projects"] [data-entry]').nth(1);
+  await second.locator('.entry-line').click();
+  await expect(page.locator('[data-sub-panel="proj-1"]')).toBeVisible();
+  await expect(page.locator('[data-sub-panel="proj-0"]')).toBeHidden();
 });
 
-test('clicking an entry in an unfocused pane focuses the pane and selects the entry', async ({ page }) => {
+test('clicking a subnav item in an unfocused pane focuses the pane and selects it', async ({ page }) => {
   // pane-about is focused by default; click straight into the work pane
-  const first = page.locator('[data-tab-panel="projects"] [data-entry]').first();
-  await first.locator('.entry-line').click();
+  const second = page.locator('[data-tab-panel="projects"] [data-entry]').nth(1);
+  await second.locator('.entry-line').click();
   await expect(page.locator('#pane-work')).toHaveClass(/focused/);
-  await expect(first).toHaveClass(/selected/);
-  await expect(first.locator('[data-entry-details]')).toBeVisible();
+  await expect(second).toHaveClass(/selected/);
+  await expect(page.locator('[data-sub-panel="proj-1"]')).toBeVisible();
 });
 
 test('t cycles theme and persists across reload', async ({ page }) => {

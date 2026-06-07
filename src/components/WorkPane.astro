@@ -15,7 +15,21 @@ const experience = await getExperience();
 const highlights = await getHighlights();
 const certifications = await getCertifications();
 const education = await getEducation();
-const tabs = ['projects', 'experience', 'highlights', 'certification', 'education'] as const;
+const tabs = ['projects', 'experience', 'highlights', 'certification'] as const;
+
+// Group items by their category field, preserving content order.
+function groupBy<T>(items: readonly T[], key: (item: T) => string): Map<string, T[]> {
+  const groups = new Map<string, T[]>();
+  for (const item of items) {
+    const k = key(item) || 'misc';
+    if (!groups.has(k)) groups.set(k, []);
+    groups.get(k)!.push(item);
+  }
+  return groups;
+}
+
+const highlightGroups = [...groupBy(highlights, (h) => h.category).entries()];
+const certGroups = [...groupBy(certifications, (c) => c.category).entries()];
 ---
 
 <Pane title="work" id="work" icon="folder">
@@ -29,82 +43,139 @@ const tabs = ['projects', 'experience', 'highlights', 'certification', 'educatio
 
   <div data-tab-panel="projects" role="tabpanel" id="panel-projects" aria-labelledby="tab-projects">
     {projects.length === 0 && <p class="dim">// nothing here yet</p>}
-    <ul class="entries">
-      {projects.map((p) => (
-        <li data-entry>
-          <button class="entry-line" aria-expanded="false">
-            <span class="marker">▸</span> {p.name}
-            {p.blurb && <span class="dim"> — {p.blurb}</span>}
-            {p.year && <span class="year"> {p.year}</span>}
-          </button>
-          <div data-entry-details hidden>
-            {p.details}
+    {projects.length > 0 && (
+      <div class="sub-layout">
+        <ul class="entries subnav">
+          {projects.map((p, i) => (
+            <li data-entry data-sub={`proj-${i}`} class:list={[{ selected: i === 0 }]}>
+              <button class="entry-line">
+                <span class="marker">▸</span> {p.name}
+              </button>
+            </li>
+          ))}
+        </ul>
+        {projects.map((p, i) => (
+          <div class="sub-content" data-sub-panel={`proj-${i}`} hidden={i !== 0}>
+            <h3>{p.name} {p.year && <span class="year">{p.year}</span>}</h3>
+            {p.blurb && <p class="dim sub-blurb">{p.blurb}</p>}
+            <p class="prose">{p.details}</p>
             {p.links.length > 0 && (
-              <p>
+              <p class="links">
                 {p.links.map((l) => (
                   <a href={l.url}>{l.label}</a>
                 ))}
               </p>
             )}
           </div>
-        </li>
-      ))}
-    </ul>
+        ))}
+      </div>
+    )}
   </div>
 
   <div data-tab-panel="experience" role="tabpanel" id="panel-experience" aria-labelledby="tab-experience" hidden>
     <p><a id="resume-link" href="/resume.pdf" download><Icon name="download" /> resume.pdf</a> <span class="dim desktop-hints">(or press d)</span></p>
     {experience.length === 0 && <p class="dim">// nothing here yet</p>}
-    <ul class="entries">
-      {experience.map((e) => (
-        <li data-entry>
-          <button class="entry-line" aria-expanded="false">
-            <span class="marker">▸</span> {e.role} <span class="dim">@ {e.company}</span>
-            <span class="dim"> · {e.period}</span>
-          </button>
-          <div data-entry-details hidden>
-            {e.bullets.map((b) => `• ${b}`).join('\n')}
+    {experience.length > 0 && (
+      <div class="sub-layout">
+        <ul class="entries subnav">
+          {experience.map((e, i) => (
+            <li data-entry data-sub={`exp-${i}`} class:list={[{ selected: i === 0 }]}>
+              <button class="entry-line">
+                <span class="marker">▸</span> {e.role}
+              </button>
+            </li>
+          ))}
+        </ul>
+        {experience.map((e, i) => (
+          <div class="sub-content" data-sub-panel={`exp-${i}`} hidden={i !== 0}>
+            <h3>{e.role} <span class="dim">@ {e.company}</span> <span class="year">{e.period}</span></h3>
+            <ul class="bullets">
+              {e.bullets.map((b) => (
+                <li>{b}</li>
+              ))}
+            </ul>
           </div>
-        </li>
-      ))}
-    </ul>
+        ))}
+      </div>
+    )}
   </div>
 
   <div data-tab-panel="highlights" role="tabpanel" id="panel-highlights" aria-labelledby="tab-highlights" hidden>
     {highlights.length === 0 && <p class="dim">// nothing here yet</p>}
-    <ul class="entries">
-      {highlights.map((h, i) => (
-        <li>
-          <span style={`color: var(--${cycleColor(i)})`}>★</span> {h.text}
-          {h.year && <span class="year"> {h.year}</span>}
-        </li>
-      ))}
-    </ul>
+    {highlights.length > 0 && (
+      <div class="sub-layout">
+        <ul class="entries subnav">
+          {highlightGroups.map(([category], i) => (
+            <li data-entry data-sub={`hl-${i}`} class:list={[{ selected: i === 0 }]}>
+              <button class="entry-line">
+                <span class="marker">▸</span> {category}
+              </button>
+            </li>
+          ))}
+        </ul>
+        {highlightGroups.map(([, items], i) => (
+          <div class="sub-content" data-sub-panel={`hl-${i}`} hidden={i !== 0}>
+            <ul class="entries">
+              {items.map((h, j) => (
+                <li>
+                  <span style={`color: var(--${cycleColor(j)})`}>★</span> {h.text}
+                  {h.year && <span class="year"> {h.year}</span>}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    )}
   </div>
 
   <div data-tab-panel="certification" role="tabpanel" id="panel-certification" aria-labelledby="tab-certification" hidden>
-    {certifications.length === 0 && <p class="dim">// nothing here yet</p>}
-    <ul class="entries">
-      {certifications.map((c) => (
-        <li>
-          <span class="marker">▸</span> {c.name}
-          {c.issuer && <span class="dim"> @ {c.issuer}</span>}
-          {c.year && <span class="year"> {c.year}</span>}
-        </li>
-      ))}
-    </ul>
-  </div>
-
-  <div data-tab-panel="education" role="tabpanel" id="panel-education" aria-labelledby="tab-education" hidden>
-    {education.length === 0 && <p class="dim">// nothing here yet</p>}
-    <ul class="entries">
-      {education.map((e) => (
-        <li>
-          <span class="marker">▸</span> {e.degree}
-          {e.school && <span class="dim"> @ {e.school}</span>}
-          {e.period && <span class="year"> {e.period}</span>}
-        </li>
-      ))}
-    </ul>
+    {certifications.length === 0 && education.length === 0 && <p class="dim">// nothing here yet</p>}
+    {(certifications.length > 0 || education.length > 0) && (
+      <div class="sub-layout">
+        <ul class="entries subnav">
+          {certGroups.map(([category], i) => (
+            <li data-entry data-sub={`cert-${i}`} class:list={[{ selected: i === 0 }]}>
+              <button class="entry-line">
+                <span class="marker">▸</span> {category}
+              </button>
+            </li>
+          ))}
+          {education.length > 0 && (
+            <li data-entry data-sub="cert-edu" class:list={[{ selected: certGroups.length === 0 }]}>
+              <button class="entry-line">
+                <span class="marker">▸</span> education
+              </button>
+            </li>
+          )}
+        </ul>
+        {certGroups.map(([, items], i) => (
+          <div class="sub-content" data-sub-panel={`cert-${i}`} hidden={i !== 0}>
+            <ul class="entries">
+              {items.map((c) => (
+                <li>
+                  <span class="marker">▸</span> {c.name}
+                  {c.issuer && <span class="dim"> @ {c.issuer}</span>}
+                  {c.year && <span class="year"> {c.year}</span>}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+        {education.length > 0 && (
+          <div class="sub-content" data-sub-panel="cert-edu" hidden={certGroups.length > 0}>
+            <ul class="entries">
+              {education.map((e) => (
+                <li>
+                  <span class="marker">▸</span> {e.degree}
+                  {e.school && <span class="dim"> @ {e.school}</span>}
+                  {e.period && <span class="year"> {e.period}</span>}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
+    )}
   </div>
 </Pane>
