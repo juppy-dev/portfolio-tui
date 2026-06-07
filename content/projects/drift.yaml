@@ -1,0 +1,10 @@
+name: drift
+blurb: feature flags without the dashboard tax
+details: |-
+  Git-native feature flags: flags live as TOML in your repo, evaluated at
+  the edge, with gradual rollouts and kill switches. SDKs for TS, Go, and
+  Swift. Zero external dashboard to babysit.
+year: '2023'
+links:
+  - label: docs
+    url: https://example.com/drift

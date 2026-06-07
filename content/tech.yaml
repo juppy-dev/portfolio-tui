@@ -2,8 +2,27 @@ groups:
   - name: languages
     items:
       - typescript
+      - rust
       - python
-  - name: tools
+      - go
+      - swift
+  - name: frontend
     items:
       - astro
+      - react
+      - svelte
+      - tailwind
+  - name: backend
+    items:
+      - node
+      - postgres
+      - redis
+      - graphql
+  - name: infra & tools
+    items:
       - docker
+      - cloudflare
+      - aws
+      - playwright
+      - neovim
+      - ghostty

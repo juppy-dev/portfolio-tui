@@ -1,12 +1,21 @@
 art: |2-
-   /\_/\
-  ( o.o )
-   > ^ <
+  ╭───────────╮
+  │ >_ ▮      │
+  │           │
+  │  make it  │
+  │   work    │
+  ╰───────────╯
 artColor: accent
 rows:
   - key: Building
-    value: this site
+    value: codegraph v2
   - key: Learning
-    value: rust
+    value: rust + ratatui
+  - key: Reading
+    value: Designing Data-Intensive Applications
+  - key: Listening
+    value: synthwave, mostly
+  - key: Location
+    value: remote (CET)
   - key: Status
     value: open to interesting work

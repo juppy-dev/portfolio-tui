@@ -1,0 +1,11 @@
+name: codegraph
+blurb: code intelligence MCP server
+details: |-
+  A tree-sitter-parsed knowledge graph of every symbol, edge, and file in a
+  codebase, exposed over MCP. Sub-millisecond structural queries — callers,
+  callees, impact analysis, flow tracing — that grep can't answer.
+  Rust core, TypeScript bindings, SQLite storage.
+year: '2026'
+links:
+  - label: source
+    url: https://github.com/REPLACE_ME/codegraph

@@ -1,6 +1,9 @@
 name: portfolio-v2
 blurb: you are here
 details: |-
-  Terminal-style single-page portfolio. Astro + Keystatic + ~200 lines of vanilla TS.
+  Terminal-style single-page portfolio. Astro + Keystatic + ~200 lines of
+  vanilla TS for the TUI layer. Keyboard-first: hit ? to see the keymap.
 year: '2026'
-links: []
+links:
+  - label: source
+    url: https://github.com/REPLACE_ME/portfolio-v2

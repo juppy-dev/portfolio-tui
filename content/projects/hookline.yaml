@@ -1,0 +1,10 @@
+name: hookline
+blurb: webhook relay & replay
+details: |-
+  Receive, inspect, transform, and replay webhooks with a TUI client.
+  Durable delivery with exponential backoff, dead-letter queues, and a
+  time-travel debugger for payloads. Go + NATS.
+year: '2024'
+links:
+  - label: source
+    url: https://github.com/REPLACE_ME/hookline

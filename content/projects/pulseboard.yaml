@@ -1,0 +1,12 @@
+name: pulseboard
+blurb: realtime analytics for small teams
+details: |-
+  Self-hostable product analytics with live dashboards over WebSockets.
+  Ingests 50k events/s on a single node; ClickHouse under the hood,
+  Svelte frontend. Built because the alternatives were heavy or pricey.
+year: '2025'
+links:
+  - label: site
+    url: https://example.com/pulseboard
+  - label: source
+    url: https://github.com/REPLACE_ME/pulseboard

@@ -1,9 +1,16 @@
-name: Paolo
+name: Juppy
 intro: |-
-  Hi, I'm Paolo — engineer building things for the web.
-  This site is a terminal because every site I love is a terminal at heart.
+  Hi, I'm Juppy — a product-minded engineer who has spent the last decade
+  building developer tools, realtime systems, and the occasional thing
+  that's just for fun.
+
+  I care about fast feedback loops, software that respects its users,
+  and interfaces with personality. This site is a terminal because every
+  site I love is a terminal at heart.
 links:
   - label: github
     url: https://github.com/REPLACE_ME
+  - label: linkedin
+    url: https://linkedin.com/in/REPLACE_ME
   - label: email
     url: mailto:paolo@onearrow.io

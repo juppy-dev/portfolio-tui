@@ -1,0 +1,9 @@
+name: macchina-themes
+blurb: a theme pack for macchina
+details: |-
+  Twelve hand-tuned themes for the macchina system fetcher, including the
+  Tokyo Nebula family this site's default palette comes from.
+year: '2022'
+links:
+  - label: source
+    url: https://github.com/REPLACE_ME/macchina-themes
