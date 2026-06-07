@@ -2,6 +2,7 @@
 import Pane from './Pane.astro';
 import Icon from './Icon.astro';
 import { getExperience, getHighlights, getProjects } from '../lib/content';
+import { cycleColor } from '../lib/palette';
 
 const projects = await getProjects();
 const experience = await getExperience();
@@ -13,7 +14,7 @@ const tabs = ['projects', 'experience', 'highlights'] as const;
   <div class="tabs" role="tablist" aria-label="work sections">
     {tabs.map((tab, i) => (
       <button role="tab" id={`tab-${tab}`} data-tab={tab} aria-selected={i === 0 ? 'true' : 'false'} aria-controls={`panel-${tab}`}>
-        {i + 1}:{tab}
+        {tab}
       </button>
     ))}
   </div>
@@ -26,14 +27,14 @@ const tabs = ['projects', 'experience', 'highlights'] as const;
           <button class="entry-line" aria-expanded="false">
             <span class="marker">▸</span> {p.name}
             {p.blurb && <span class="dim"> — {p.blurb}</span>}
-            {p.year && <span class="dim"> ({p.year})</span>}
+            {p.year && <span class="year"> {p.year}</span>}
           </button>
           <div data-entry-details hidden>
             {p.details}
             {p.links.length > 0 && (
               <p>
                 {p.links.map((l) => (
-                  <a href={l.url}>[{l.label}]</a>
+                  <a href={l.url}>{l.label}</a>
                 ))}
               </p>
             )}
@@ -64,10 +65,10 @@ const tabs = ['projects', 'experience', 'highlights'] as const;
   <div data-tab-panel="highlights" role="tabpanel" id="panel-highlights" aria-labelledby="tab-highlights" hidden>
     {highlights.length === 0 && <p class="dim">// nothing here yet</p>}
     <ul class="entries">
-      {highlights.map((h) => (
+      {highlights.map((h, i) => (
         <li>
-          <span style="color: var(--yellow)">★</span> {h.text}
-          {h.year && <span class="dim"> ({h.year})</span>}
+          <span style={`color: var(--${cycleColor(i)})`}>★</span> {h.text}
+          {h.year && <span class="year"> {h.year}</span>}
         </li>
       ))}
     </ul>

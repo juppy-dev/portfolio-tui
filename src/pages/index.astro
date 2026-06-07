@@ -10,6 +10,7 @@ import ContactDialog from '../components/ContactDialog.astro';
 import HelpDialog from '../components/HelpDialog.astro';
 import Icon from '../components/Icon.astro';
 import { getAbout, getTech } from '../lib/content';
+import { cycleColor } from '../lib/palette';
 
 const about = await getAbout();
 const tech = await getTech();
@@ -47,10 +48,12 @@ const title = `${user}@portfolio`;
 
       <main class="grid">
         <Pane title="about" id="about" icon="user">
-          <p style="white-space: pre-line">{about.intro}<span class="intro-cursor"></span></p>
-          <p>
+          {about.intro.split(/\n{2,}/).map((para) => (
+            <p class="prose">{para.replace(/\n/g, ' ')}</p>
+          ))}
+          <p class="links">
             {about.links.map((l) => (
-              <a href={l.url}>[{l.label}]</a>
+              <a href={l.url}>{l.label}</a>
             ))}
           </p>
         </Pane>
@@ -64,8 +67,8 @@ const title = `${user}@portfolio`;
           {tech.map((group) => (
             <div class="tech-group">
               <span class="label">{group.name}</span>
-              {group.items.map((item) => (
-                <span class="badge">{item}</span>
+              {group.items.map((item, i) => (
+                <span class={`badge badge-${cycleColor(i)}`}>{item}</span>
               ))}
             </div>
           ))}
