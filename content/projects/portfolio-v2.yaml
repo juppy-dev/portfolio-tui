@@ -1,0 +1,6 @@
+name: portfolio-v2
+blurb: you are here
+details: |-
+  Terminal-style single-page portfolio. Astro + Keystatic + ~200 lines of vanilla TS.
+year: '2026'
+links: []

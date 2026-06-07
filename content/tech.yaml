@@ -1,0 +1,9 @@
+groups:
+  - name: languages
+    items:
+      - typescript
+      - python
+  - name: tools
+    items:
+      - astro
+      - docker

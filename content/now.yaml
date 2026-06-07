@@ -1,0 +1,12 @@
+art: |-
+   /\_/\
+  ( o.o )
+   > ^ <
+artColor: accent
+rows:
+  - key: Building
+    value: this site
+  - key: Learning
+    value: rust
+  - key: Status
+    value: open to interesting work

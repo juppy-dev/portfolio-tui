@@ -1,0 +1,9 @@
+name: Paolo
+intro: |-
+  Hi, I'm Paolo — engineer building things for the web.
+  This site is a terminal because every site I love is a terminal at heart.
+links:
+  - label: github
+    url: https://github.com/REPLACE_ME
+  - label: email
+    url: mailto:paolo@onearrow.io
