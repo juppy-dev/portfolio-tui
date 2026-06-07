@@ -1,6 +1,7 @@
 ---
 import Pane from './Pane.astro';
 import { getNow } from '../lib/content';
+import { cycleColor } from '../lib/palette';
 
 const now = await getNow();
 ---
@@ -11,9 +12,9 @@ const now = await getNow();
       <pre class="now-art" aria-hidden="true" style={`color: var(--${now.artColor})`}>{now.art}</pre>
     )}
     <dl class="kv">
-      {now.rows.map((row) => (
+      {now.rows.map((row, i) => (
         <>
-          <dt>{row.key}</dt>
+          <dt style={`color: var(--${cycleColor(i)})`}>{row.key}</dt>
           <dd>{row.value}</dd>
         </>
       ))}

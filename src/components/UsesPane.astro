@@ -1,6 +1,7 @@
 ---
 import Pane from './Pane.astro';
 import { getUses } from '../lib/content';
+import { cycleColor } from '../lib/palette';
 
 const rows = await getUses();
 ---
@@ -8,9 +9,9 @@ const rows = await getUses();
 <Pane title="uses" id="uses" icon="monitor">
   {rows.length === 0 && <p class="dim">// nothing here yet</p>}
   <dl class="kv">
-    {rows.map((row) => (
+    {rows.map((row, i) => (
       <>
-        <dt>{row.key}</dt>
+        <dt style={`color: var(--${cycleColor(i)})`}>{row.key}</dt>
         <dd>{row.value}</dd>
       </>
     ))}

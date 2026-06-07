@@ -1,6 +1,7 @@
 ---
 import Pane from './Pane.astro';
 import { getVitals } from '../lib/content';
+import { cycleColor } from '../lib/palette';
 
 const vitals = await getVitals();
 // Alpha steps for heatmap intensities 0-4.
@@ -13,9 +14,9 @@ const ALPHAS = [8, 25, 45, 70, 95];
     vitals && (
       <>
         <dl class="kv">
-          {vitals.rows.map((row) => (
+          {vitals.rows.map((row, i) => (
             <>
-              <dt>{row.key}</dt>
+              <dt style={`color: var(--${cycleColor(i)})`}>{row.key}</dt>
               <dd>{row.value}</dd>
             </>
           ))}
