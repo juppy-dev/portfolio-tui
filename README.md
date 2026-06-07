@@ -23,14 +23,19 @@ resume.
 | Var | Where | Purpose |
 |---|---|---|
 | `PUBLIC_WEB3FORMS_KEY` | `.env` locally, Cloudflare Pages env | contact form access key (public, domain-bound) — get one at https://web3forms.com |
-| `SKIP_KEYSTATIC` | Cloudflare Pages env (`true`) | exclude the Keystatic admin from production builds |
+| `SKIP_KEYSTATIC` | baked into `npm run build` | excludes the Keystatic admin from production builds (set it manually only if you call `astro build` directly) |
 
 ## Deploy (Cloudflare Pages)
 
-1. Push the repo to GitHub; in Cloudflare: Workers & Pages → Create → Pages → connect the repo.
-2. Build command: `npm run build` · Output directory: `dist`
-3. Environment variables: `SKIP_KEYSTATIC=true`, `PUBLIC_WEB3FORMS_KEY=<your key>`
-4. Every push to `main` auto-deploys.
+This is a static site — deploy as a **Pages** project, not a Worker (no adapter,
+no SSR, no KV). The `build` script bakes in `SKIP_KEYSTATIC=true`, so the Keystatic
+admin is excluded from production automatically.
+
+1. Cloudflare → Workers & Pages → Create → **Pages** → connect the GitHub repo.
+2. Framework preset: **Astro** · Build command: `npm run build` · Output directory: `dist`
+3. Environment variable: `PUBLIC_WEB3FORMS_KEY=<your key>` (for the contact form).
+4. Node is pinned to 22 via `.nvmrc`.
+5. Every push to `main` auto-deploys.
 
 ## Keys
 
