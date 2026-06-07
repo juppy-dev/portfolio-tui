@@ -9,6 +9,7 @@ import { getAbout, getTech } from '../lib/content';
 const about = await getAbout();
 const tech = await getTech();
 const user = about.name.toLowerCase();
+const title = `${user}@portfolio`;
 ---
 
 <!doctype html>
@@ -17,7 +18,7 @@ const user = about.name.toLowerCase();
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={`${about.name} — portfolio`} />
-    <title>{user}@portfolio</title>
+    <title>{title}</title>
     <script is:inline>
       // Apply persisted theme + skip boot before first paint (no flash).
       const t = localStorage.getItem('theme');
