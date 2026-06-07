@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import {
   getAbout,
+  getCertifications,
+  getEducation,
   getExperience,
   getHero,
   getHighlights,
@@ -82,5 +84,16 @@ describe('content helpers', () => {
     expect(await getUses(EMPTY)).toEqual([]);
     expect(await getVitals(EMPTY)).toBeNull();
     expect(await getProcesses(EMPTY)).toEqual([]);
+    expect(await getCertifications(EMPTY)).toEqual([]);
+    expect(await getEducation(EMPTY)).toEqual([]);
+  });
+
+  it('reads certifications and education', async () => {
+    const certs = await getCertifications();
+    expect(certs.length).toBeGreaterThan(0);
+    expect(certs[0].name).toBeTruthy();
+    const edu = await getEducation();
+    expect(edu.length).toBeGreaterThan(0);
+    expect(edu[0].degree).toBeTruthy();
   });
 });

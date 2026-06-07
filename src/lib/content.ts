@@ -54,3 +54,11 @@ export async function getVitals(dir?: string) {
 export async function getProcesses(dir?: string) {
   return (await reader(dir).singletons.processes.read())?.items ?? [];
 }
+
+export async function getCertifications(dir?: string) {
+  return (await reader(dir).singletons.certifications.read())?.items ?? [];
+}
+
+export async function getEducation(dir?: string) {
+  return (await reader(dir).singletons.education.read())?.items ?? [];
+}

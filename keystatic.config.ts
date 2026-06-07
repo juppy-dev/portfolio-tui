@@ -119,6 +119,36 @@ export default config({
         ),
       },
     }),
+    certifications: singleton({
+      label: 'Certifications',
+      path: 'content/certifications',
+      format: { data: 'yaml' },
+      schema: {
+        items: fields.array(
+          fields.object({
+            name: fields.text({ label: 'Name' }),
+            issuer: fields.text({ label: 'Issuer' }),
+            year: fields.text({ label: 'Year' }),
+          }),
+          { label: 'Certifications', itemLabel: (props) => props.fields.name.value }
+        ),
+      },
+    }),
+    education: singleton({
+      label: 'Education',
+      path: 'content/education',
+      format: { data: 'yaml' },
+      schema: {
+        items: fields.array(
+          fields.object({
+            degree: fields.text({ label: 'Degree / program' }),
+            school: fields.text({ label: 'School' }),
+            period: fields.text({ label: 'Period' }),
+          }),
+          { label: 'Education', itemLabel: (props) => props.fields.degree.value }
+        ),
+      },
+    }),
     processes: singleton({
       label: 'Processes (ps aux)',
       path: 'content/processes',
