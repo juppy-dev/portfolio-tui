@@ -91,6 +91,47 @@ kbd {
 
 .bar .mode {
   color: var(--violet);
+  background: color-mix(in srgb, var(--violet) 13%, transparent);
+  border-radius: 999px;
+  padding: 1px 9px;
+  font-size: 0.85em;
+}
+
+/* per-action icon colors in the status bar */
+.bar [data-action='contact'] svg {
+  color: var(--cyan);
+}
+
+.bar [data-action='theme'] svg {
+  color: var(--violet);
+}
+
+.bar [data-action='help'] svg {
+  color: var(--green);
+}
+
+/* header "hire me" chip */
+.hire-me {
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+  border-radius: 6px;
+  padding: 1px 10px;
+  transition: background 150ms ease;
+}
+
+.bar .hire-me:hover,
+.bar .hire-me:hover kbd {
+  color: var(--accent);
+}
+
+.hire-me:hover {
+  background: color-mix(in srgb, var(--accent) 18%, transparent);
+}
+
+.hire-me kbd {
+  color: var(--accent);
+  border-color: color-mix(in srgb, var(--accent) 30%, transparent);
 }
 
 .bar button {
@@ -204,7 +245,7 @@ kbd {
   text-align: center;
   border: 1px solid var(--glass-border);
   border-radius: 12px;
-  padding: 1rem 0.9rem 0.75rem;
+  padding: 1.75rem 0.9rem 1.5rem;
   background: var(--glass);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
@@ -233,8 +274,13 @@ kbd {
   font-size: 1.6rem;
 }
 
+.hero-prompt {
+  margin: 0 0 0.6rem;
+  font-size: 0.8rem;
+}
+
 .hero-tagline {
-  margin: 0.4rem 0 0;
+  margin: 0.6rem 0 0;
   font-size: 0.8rem;
   color: var(--dim);
 }
@@ -334,7 +380,7 @@ kbd {
 }
 
 .entries [data-entry-details] a::after,
-.links a::after {
+.links a:not(.has-icon)::after {
   content: ' ↗';
   font-size: 0.85em;
 }
@@ -342,6 +388,35 @@ kbd {
 .entries [data-entry-details] a:hover,
 .links a:hover {
   color: var(--fg);
+}
+
+/* brand-icon links: glyph + label, vertically centered */
+.links a.has-icon {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+}
+
+.links a.has-icon svg {
+  flex: none;
+}
+
+/* resume download chip */
+#resume-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+  color: var(--cyan);
+  text-decoration: none;
+  background: color-mix(in srgb, var(--cyan) 10%, transparent);
+  border: 1px solid color-mix(in srgb, var(--cyan) 30%, transparent);
+  border-radius: 6px;
+  padding: 2px 10px;
+  transition: background 150ms ease;
+}
+
+#resume-link:hover {
+  background: color-mix(in srgb, var(--cyan) 18%, transparent);
 }
 
 /* ---- key/value grids (now, uses, vitals) ---- */
@@ -466,6 +541,16 @@ dialog h2 {
   margin-top: 0;
   font-size: 1rem;
   color: var(--accent);
+}
+
+.form-note {
+  margin: -0.4rem 0 0.8rem;
+  font-size: 0.85rem;
+  max-width: 44ch;
+}
+
+.form-note a {
+  color: var(--cyan);
 }
 
 dialog form {

@@ -7,11 +7,10 @@ const hero = await getHero();
 {
   hero && (
     <section class="hero" aria-label="juppy.dev">
+      <p class="hero-prompt dim">$ whoami</p>
       <pre class="hero-art" aria-hidden="true">{hero.art}</pre>
       <span class="hero-art-fallback">juppy.dev</span>
-      <p class="hero-tagline">
-        $ echo "hello@juppy.dev" <span class="accent">— {hero.tagline}</span>
-      </p>
+      <p class="hero-tagline"><span class="accent">{hero.tagline}</span></p>
     </section>
   )
 }

@@ -5,9 +5,15 @@ test.beforeEach(async ({ page }) => {
   await page.goto('/');
 });
 
-test('hero renders banner and tagline', async ({ page }) => {
+test('hero renders whoami prompt, banner, and tagline', async ({ page }) => {
+  await expect(page.locator('.hero-prompt')).toHaveText('$ whoami');
   await expect(page.locator('.hero-art')).toBeVisible();
-  await expect(page.locator('.hero-tagline')).toContainText('hello@juppy.dev');
+  await expect(page.locator('.hero-tagline')).toContainText('engineer');
+});
+
+test('header hire-me button opens the contact dialog', async ({ page }) => {
+  await page.locator('.hire-me').click();
+  await expect(page.locator('#contact-dialog')).toBeVisible();
 });
 
 test('new panes render and Tab reaches them', async ({ page }) => {
