@@ -1,13 +1,57 @@
 ---
+import '../styles/themes.css';
+import '../styles/global.css';
+import { getAbout } from '../lib/content';
+
+const about = await getAbout();
+const user = about.name.toLowerCase();
 ---
+
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="andromeda">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>portfolio</title>
+    <meta name="description" content={`${about.name} — portfolio`} />
+    <title>{user}@portfolio</title>
+    <script is:inline>
+      // Apply persisted theme + skip boot before first paint (no flash).
+      const t = localStorage.getItem('theme');
+      if (t) document.documentElement.dataset.theme = t;
+      if (
+        sessionStorage.getItem('booted') ||
+        matchMedia('(prefers-reduced-motion: reduce)').matches
+      ) {
+        document.documentElement.classList.add('no-boot');
+      }
+    </script>
   </head>
   <body>
-    <p>boot pending…</p>
+    <div id="boot" aria-hidden="true"><pre></pre></div>
+
+    <div class="app">
+      <header class="bar">
+        <span><span class="ok">●</span> {user}@portfolio</span>
+        <span class="dim">~/v2</span>
+      </header>
+
+      <main class="grid">
+        <!-- panes land here in Tasks 5-6 -->
+      </main>
+
+      <footer class="bar status-bar">
+        <span class="hints">
+          <span class="desktop-hints"><kbd>tab</kbd> pane · <kbd>1-3</kbd> tabs · <kbd>j/k</kbd> nav</span>
+          <button data-action="contact"><kbd>c</kbd> contact</button>
+          <button data-action="theme"><kbd>t</kbd> <span data-theme-label>andromeda</span></button>
+          <button data-action="help"><kbd>?</kbd> help</button>
+        </span>
+        <span class="mode">NORMAL</span>
+      </footer>
+    </div>
+
+    <script>
+      import '../scripts/tui.ts';
+    </script>
   </body>
 </html>

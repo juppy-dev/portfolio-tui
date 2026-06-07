@@ -1,0 +1,78 @@
+/* Default: Tokyo Nebula Andromeda (user's ghostty theme).
+   Body text promoted to palette 7 (#c0caf5) for web readability;
+   the theme's true foreground (#787c99) serves as --dim. */
+:root,
+[data-theme='andromeda'] {
+  --bg: #16161e;
+  --bg-alt: #0a0c14;
+  --fg: #c0caf5;
+  --dim: #787c99;
+  --border: #3b4261;
+  --accent: #00d4ff;
+  --red: #ff6188;
+  --green: #7ce38b;
+  --yellow: #ffd866;
+  --blue: #7aa2f7;
+  --violet: #a78bfa;
+  --cyan: #00d4ff;
+}
+
+[data-theme='catppuccin-mocha'] {
+  --bg: #1e1e2e;
+  --bg-alt: #181825;
+  --fg: #cdd6f4;
+  --dim: #6c7086;
+  --border: #45475a;
+  --accent: #cba6f7;
+  --red: #f38ba8;
+  --green: #a6e3a1;
+  --yellow: #f9e2af;
+  --blue: #89b4fa;
+  --violet: #cba6f7;
+  --cyan: #94e2d5;
+}
+
+[data-theme='gruvbox-dark'] {
+  --bg: #282828;
+  --bg-alt: #1d2021;
+  --fg: #ebdbb2;
+  --dim: #928374;
+  --border: #504945;
+  --accent: #fabd2f;
+  --red: #fb4934;
+  --green: #b8bb26;
+  --yellow: #fabd2f;
+  --blue: #83a598;
+  --violet: #d3869b;
+  --cyan: #8ec07c;
+}
+
+[data-theme='tokyo-night'] {
+  --bg: #1a1b26;
+  --bg-alt: #16161e;
+  --fg: #c0caf5;
+  --dim: #565f89;
+  --border: #3b4261;
+  --accent: #7aa2f7;
+  --red: #f7768e;
+  --green: #9ece6a;
+  --yellow: #e0af68;
+  --blue: #7aa2f7;
+  --violet: #bb9af7;
+  --cyan: #7dcfff;
+}
+
+[data-theme='green-phosphor'] {
+  --bg: #0a0e0a;
+  --bg-alt: #0f140f;
+  --fg: #9ece9e;
+  --dim: #3e5c3e;
+  --border: #1d4022;
+  --accent: #33ff66;
+  --red: #ffb347; /* amber stands in for red on the monochrome CRT */
+  --green: #33ff66;
+  --yellow: #aaffaa;
+  --blue: #6fbf7f;
+  --violet: #6fbf7f;
+  --cyan: #aaffaa;
+}
