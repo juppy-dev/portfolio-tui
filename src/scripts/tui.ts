@@ -199,13 +199,16 @@ const clockEl = document.querySelector<HTMLElement>('[data-clock]');
 
 function tickClock(): void {
   if (!clockEl) return;
-  const time = new Intl.DateTimeFormat('en-GB', {
+  // Derive the zone label too (CET vs CEST) so it stays correct across DST.
+  const parts = new Intl.DateTimeFormat('en-GB', {
     hour: '2-digit',
     minute: '2-digit',
     hour12: false,
     timeZone: TIMEZONE,
-  }).format(new Date());
-  clockEl.textContent = `CET ${time}`;
+    timeZoneName: 'short',
+  }).formatToParts(new Date());
+  const get = (type: string) => parts.find((p) => p.type === type)?.value ?? '';
+  clockEl.textContent = `${get('timeZoneName')} ${get('hour')}:${get('minute')}`;
 }
 
 setInterval(tickClock, 60_000);

@@ -24,5 +24,5 @@ test('vitals heatmap renders intensity cells', async ({ page }) => {
 });
 
 test('status bar clock shows the time', async ({ page }) => {
-  await expect(page.locator('[data-clock]')).toHaveText(/CET \d{2}:\d{2}/);
+  await expect(page.locator('[data-clock]')).toHaveText(/CES?T \d{2}:\d{2}/);
 });
