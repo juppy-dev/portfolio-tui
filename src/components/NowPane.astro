@@ -10,7 +10,7 @@ const now = await getNow();
     {now.art && (
       <pre class="now-art" aria-hidden="true" style={`color: var(--${now.artColor})`}>{now.art}</pre>
     )}
-    <dl class="now-rows">
+    <dl class="kv">
       {now.rows.map((row) => (
         <>
           <dt>{row.key}</dt>

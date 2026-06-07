@@ -9,7 +9,11 @@ body {
 }
 
 body {
-  background: var(--bg);
+  background:
+    radial-gradient(circle at 72% 12%, var(--tint-1), transparent 42%),
+    radial-gradient(circle at 22% 85%, var(--tint-2), transparent 46%),
+    radial-gradient(ellipse at 25% 0%, color-mix(in srgb, var(--fg) 7%, var(--bg)) 0%, var(--bg-alt) 62%);
+  background-attachment: fixed;
   color: var(--fg);
   font-family: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
   font-size: 15px;
@@ -30,12 +34,27 @@ button {
 }
 
 kbd {
-  color: var(--yellow);
+  display: inline-block;
+  min-width: 1.2em;
+  padding: 0 5px;
+  text-align: center;
   font-family: inherit;
+  font-size: 0.8em;
+  color: var(--dim);
+  background: color-mix(in srgb, var(--fg) 6%, transparent);
+  border: 1px solid color-mix(in srgb, var(--fg) 15%, transparent);
+  border-radius: 4px;
+  transition: color 150ms ease, border-color 150ms ease;
 }
 
 .dim {
   color: var(--dim);
+}
+
+.prose {
+  max-width: 70ch;
+  line-height: 1.65;
+  margin: 0 0 0.8em;
 }
 
 :focus-visible {
@@ -47,9 +66,9 @@ kbd {
 .app {
   display: grid;
   grid-template-rows: auto 1fr auto;
-  gap: 8px;
+  gap: 10px;
   height: 100dvh;
-  padding: 8px;
+  padding: 10px;
 }
 
 .bar {
@@ -57,10 +76,13 @@ kbd {
   justify-content: space-between;
   align-items: center;
   gap: 1rem;
-  background: var(--bg-alt);
+  background: color-mix(in srgb, var(--bg-alt) 60%, transparent);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid color-mix(in srgb, var(--fg) 8%, transparent);
   color: var(--dim);
-  border-radius: 4px;
-  padding: 4px 12px;
+  border-radius: 8px;
+  padding: 5px 12px;
 }
 
 .bar .ok {
@@ -71,46 +93,72 @@ kbd {
   color: var(--violet);
 }
 
-.bar button:hover kbd,
-.bar button:hover {
+.bar button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  transition: color 150ms ease;
+}
+
+.bar button:hover,
+.bar button:hover kbd {
   color: var(--fg);
 }
 
 .hints {
   display: flex;
-  gap: 0.75rem;
+  gap: 0.9rem;
   flex-wrap: wrap;
+  align-items: center;
+}
+
+.clock {
+  color: var(--cyan);
+}
+
+.clock:not(:empty)::after {
+  content: ' · ';
+  color: var(--dim);
 }
 
 /* ---- pane grid ---- */
 .grid {
   display: grid;
-  grid-template-columns: minmax(280px, 1fr) 2fr;
-  grid-template-rows: auto 1fr auto;
+  grid-template-columns: minmax(280px, 1fr) 1fr 1fr;
+  grid-template-rows: auto auto auto minmax(0, 1fr) auto;
   grid-template-areas:
-    'about work'
-    'now   work'
-    'now   tech';
-  gap: 8px;
+    'hero  hero hero'
+    'about work work'
+    'now   work work'
+    'ps    work work'
+    'tech  uses vitals';
+  gap: 10px;
   min-height: 0;
 }
 
-#pane-about { grid-area: about; }
-#pane-now   { grid-area: now; }
-#pane-work  { grid-area: work; }
-#pane-tech  { grid-area: tech; }
+.hero        { grid-area: hero; }
+#pane-about  { grid-area: about; }
+#pane-now    { grid-area: now; }
+#pane-ps     { grid-area: ps; }
+#pane-work   { grid-area: work; min-height: 480px; }
+#pane-tech   { grid-area: tech; }
+#pane-uses   { grid-area: uses; }
+#pane-vitals { grid-area: vitals; }
 
-/* ---- panes ---- */
+/* ---- glass panes ---- */
 .pane {
   position: relative;
   display: flex;
   flex-direction: column;
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 1rem 0.85rem 0.65rem;
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  padding: 0.85rem 0.9rem;
   min-height: 0;
-  /* overflow stays visible so the inset title isn't clipped;
-     scrolling lives on .pane-body instead */
+  background: var(--glass);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 8px 28px rgb(0 0 0 / 0.35);
+  transition: border-color 180ms ease, box-shadow 180ms ease;
 }
 
 .pane-body {
@@ -123,58 +171,110 @@ kbd {
   outline: none;
 }
 
-.pane-title {
-  position: absolute;
-  top: -0.75em;
-  left: 0.75rem;
-  margin: 0;
-  padding: 0 0.4em;
-  background: var(--bg);
-  color: var(--violet);
-  font-size: 0.85rem;
-  font-weight: 700;
+.pane.focused {
+  border-color: color-mix(in srgb, var(--accent) 55%, transparent);
+  box-shadow: 0 8px 28px color-mix(in srgb, var(--accent) 12%, transparent);
 }
 
-.pane.focused {
-  border-color: var(--accent);
+.pane-title {
+  display: flex;
+  align-items: center;
+  gap: 0.45em;
+  margin: 0 0 0.55rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--violet);
+  transition: color 160ms ease;
 }
 
 .pane.focused .pane-title {
   color: var(--accent);
 }
 
-/* blinking block cursor on the focused pane title */
-.pane.focused .pane-title::after {
-  content: '█';
-  margin-left: 2px;
-  animation: blink 1s steps(1) infinite;
+/* ---- hero ---- */
+.hero {
+  position: relative;
+  text-align: center;
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  padding: 1rem 0.9rem 0.75rem;
+  background: var(--glass);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 8px 28px rgb(0 0 0 / 0.35);
 }
 
-@keyframes blink {
-  50% { opacity: 0; }
+.hero-art,
+.hero-art-fallback {
+  font-weight: 700;
+  background: linear-gradient(90deg, var(--cyan), var(--violet), var(--red));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .pane.focused .pane-title::after {
-    animation: none;
-  }
+.hero-art {
+  display: inline-block;
+  text-align: left;
+  margin: 0;
+  font-size: clamp(5px, 1.1vw, 11px);
+  line-height: 1.15;
+}
+
+.hero-art-fallback {
+  display: none;
+  font-size: 1.6rem;
+}
+
+.hero-tagline {
+  margin: 0.4rem 0 0;
+  font-size: 0.8rem;
+  color: var(--dim);
+}
+
+.hero-tagline .accent {
+  color: var(--cyan);
 }
 
 /* ---- tabs ---- */
 .tabs {
   display: flex;
-  gap: 1rem;
-  margin-bottom: 0.5rem;
+  gap: 1.1rem;
+  border-bottom: 1px solid var(--glass-border);
+  margin-bottom: 0.6rem;
 }
 
 .tabs [role='tab'] {
+  position: relative;
   color: var(--dim);
-  padding-bottom: 1px;
+  padding: 0 2px 6px;
+  transition: color 160ms ease;
 }
 
+.tabs [role='tab']:hover,
 .tabs [role='tab'][aria-selected='true'] {
-  color: var(--yellow);
-  border-bottom: 1px solid var(--yellow);
+  color: var(--fg);
+}
+
+.tabs [role='tab']::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--violet));
+  opacity: 0;
+  transform: scaleX(0.6);
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+
+.tabs [role='tab'][aria-selected='true']::after {
+  opacity: 1;
+  transform: scaleX(1);
 }
 
 /* ---- entry lists ---- */
@@ -188,29 +288,58 @@ kbd {
   display: block;
   width: 100%;
   text-align: left;
-  padding: 1px 4px;
-  border-radius: 3px;
+  padding: 2px 6px;
+  border-radius: 6px;
+  transition: background 150ms ease;
+}
+
+.entries .entry-line:hover {
+  background: color-mix(in srgb, var(--fg) 5%, transparent);
 }
 
 .entries [data-entry].selected > .entry-line {
-  background: var(--bg-alt);
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
 }
 
 .entries .marker {
   color: var(--yellow);
 }
 
+.entries .year {
+  color: var(--cyan);
+  opacity: 0.75;
+  font-size: 0.8rem;
+}
+
 .entries [data-entry-details] {
-  padding: 0.25rem 0 0.5rem 1.25rem;
+  border-left: 1px solid var(--glass-border);
+  margin: 0.2rem 0 0.4rem 6px;
+  padding: 0.2rem 0 0.3rem 1rem;
+  max-width: 70ch;
   color: var(--dim);
   white-space: pre-line;
 }
 
-.entries [data-entry-details] a {
-  margin-right: 0.5rem;
+.entries [data-entry-details] a,
+.links a {
+  color: var(--cyan);
+  text-decoration: none;
+  margin-right: 0.75rem;
+  transition: color 150ms ease;
 }
 
-/* ---- now pane ---- */
+.entries [data-entry-details] a::after,
+.links a::after {
+  content: ' ↗';
+  font-size: 0.85em;
+}
+
+.entries [data-entry-details] a:hover,
+.links a:hover {
+  color: var(--fg);
+}
+
+/* ---- key/value grids (now, uses, vitals) ---- */
 .now {
   display: flex;
   gap: 1.25rem;
@@ -222,52 +351,110 @@ kbd {
   line-height: 1.2;
 }
 
-.now-rows {
+.kv {
   margin: 0;
   display: grid;
   grid-template-columns: max-content 1fr;
   gap: 0 1rem;
 }
 
-.now-rows dt {
+.kv dt {
   color: var(--blue);
 }
 
-.now-rows dd {
+.kv dd {
   margin: 0;
 }
 
 /* ---- tech pane ---- */
 .tech-group {
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.45rem;
 }
 
 .tech-group .label {
   color: var(--blue);
   margin-right: 0.5rem;
+  font-size: 0.85rem;
 }
 
 .badge {
   display: inline-block;
-  border: 1px solid var(--border);
-  border-radius: 3px;
-  padding: 0 0.4em;
-  margin: 1px 2px;
-  color: var(--fg);
+  border-radius: 999px;
+  padding: 1px 9px;
+  margin: 2px 3px 2px 0;
+  font-size: 0.8rem;
+}
+
+.badge-blue   { background: color-mix(in srgb, var(--blue) 13%, transparent);   color: var(--blue); }
+.badge-red    { background: color-mix(in srgb, var(--red) 13%, transparent);    color: var(--red); }
+.badge-yellow { background: color-mix(in srgb, var(--yellow) 13%, transparent); color: var(--yellow); }
+.badge-green  { background: color-mix(in srgb, var(--green) 13%, transparent);  color: var(--green); }
+.badge-violet { background: color-mix(in srgb, var(--violet) 13%, transparent); color: var(--violet); }
+.badge-cyan   { background: color-mix(in srgb, var(--cyan) 13%, transparent);   color: var(--cyan); }
+
+/* ---- ps pane ---- */
+.ps-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 0.85rem;
+}
+
+.ps-state {
+  display: inline-block;
+  min-width: 5.5em;
+}
+
+.ps-running  { color: var(--green); }
+.ps-sleeping { color: var(--yellow); }
+.ps-zombie   { color: var(--red); }
+
+/* ---- vitals heatmap ---- */
+.heatmap {
+  margin-top: 0.5rem;
+}
+
+.heatmap-label {
+  display: block;
+  font-size: 0.75rem;
+  margin-bottom: 0.2rem;
+}
+
+.hm-cell {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  margin: 0 2px 0 0;
 }
 
 /* ---- dialogs ---- */
 dialog {
-  background: var(--bg);
+  background: var(--glass);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   color: var(--fg);
-  border: 1px solid var(--accent);
-  border-radius: 6px;
+  border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
+  border-radius: 12px;
   padding: 1.25rem;
   min-width: min(480px, 90vw);
+  box-shadow: 0 16px 48px rgb(0 0 0 / 0.5);
+}
+
+dialog[open] {
+  animation: dialog-in 180ms ease;
+}
+
+@keyframes dialog-in {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
 }
 
 dialog::backdrop {
-  background: rgb(0 0 0 / 0.6);
+  background: rgb(0 0 0 / 0.5);
+  backdrop-filter: blur(4px);
 }
 
 dialog h2 {
@@ -284,17 +471,19 @@ dialog form {
 dialog input,
 dialog textarea {
   font: inherit;
-  background: var(--bg-alt);
+  background: color-mix(in srgb, var(--bg-alt) 70%, transparent);
   color: var(--fg);
-  border: 1px solid var(--border);
-  border-radius: 4px;
+  caret-color: var(--accent);
+  border: 1px solid var(--glass-border);
+  border-radius: 6px;
   padding: 0.4rem 0.6rem;
+  transition: border-color 150ms ease;
 }
 
 dialog input:focus,
 dialog textarea:focus {
   outline: none;
-  border-color: var(--accent);
+  border-color: color-mix(in srgb, var(--accent) 60%, transparent);
 }
 
 .form-actions {
@@ -316,7 +505,7 @@ dialog textarea:focus {
 }
 
 .keys-table td {
-  padding: 1px 0.75rem 1px 0;
+  padding: 2px 0.75rem 2px 0;
 }
 
 /* ---- boot overlay ---- */
@@ -329,7 +518,7 @@ dialog textarea:focus {
 }
 
 #boot pre {
-  color: var(--green);
+  color: var(--accent);
   margin: 0;
 }
 
@@ -337,20 +526,17 @@ dialog textarea:focus {
   display: none;
 }
 
-/* ---- about pane intro cursor ---- */
-.intro-cursor::after {
-  content: '█';
-  color: var(--accent);
-  animation: blink 1s steps(1) infinite;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .intro-cursor::after {
-    animation: none;
+/* ---- fallback: no backdrop-filter ---- */
+@supports not (backdrop-filter: blur(1px)) {
+  .pane,
+  .hero,
+  .bar,
+  dialog {
+    background: color-mix(in srgb, var(--bg) 92%, transparent);
   }
 }
 
-/* ---- mobile (Task 12 adjusts further) ---- */
+/* ---- mobile ---- */
 @media (max-width: 800px) {
   .app {
     height: auto;
@@ -359,16 +545,33 @@ dialog textarea:focus {
 
   .grid {
     grid-template-columns: 1fr;
-    grid-template-areas: 'about' 'now' 'work' 'tech';
     grid-template-rows: none;
+    grid-template-areas: 'hero' 'about' 'now' 'ps' 'work' 'tech' 'uses' 'vitals';
   }
 
   .status-bar {
     position: sticky;
-    bottom: 8px;
+    bottom: 10px;
   }
 
-  /* art stacks above the rows on narrow screens (spec) */
+  /* cheaper blur on phone GPUs */
+  .pane,
+  .hero,
+  .bar,
+  dialog {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  body {
+    background:
+      radial-gradient(circle at 80% 5%, var(--tint-1), transparent 30%),
+      radial-gradient(circle at 15% 95%, var(--tint-2), transparent 32%),
+      radial-gradient(ellipse at 25% 0%, color-mix(in srgb, var(--fg) 7%, var(--bg)) 0%, var(--bg-alt) 62%);
+    background-attachment: fixed;
+  }
+
+  /* art stacks above the rows on narrow screens */
   .now {
     flex-direction: column;
   }
@@ -378,8 +581,28 @@ dialog textarea:focus {
   }
 }
 
+@media (max-width: 480px) {
+  .hero-art {
+    display: none;
+  }
+
+  .hero-art-fallback {
+    display: inline-block;
+  }
+}
+
 @media (max-width: 360px) {
   .now-art {
     display: none;
+  }
+}
+
+/* ---- reduced motion: kill everything ---- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
   }
 }
