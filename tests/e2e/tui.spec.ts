@@ -115,3 +115,18 @@ test('? opens help overlay listing keys; Esc closes', async ({ page }) => {
   await page.keyboard.press('Escape');
   await expect(page.locator('#help-dialog')).toBeHidden();
 });
+
+test.describe('mobile', () => {
+  test.use({ viewport: { width: 390, height: 844 }, hasTouch: true });
+
+  test('panes stack in one column; tabs remain tappable', async ({ page }) => {
+    await page.goto('/');
+    const about = await page.locator('#pane-about').boundingBox();
+    const now = await page.locator('#pane-now').boundingBox();
+    expect(about!.y).toBeLessThan(now!.y);
+    expect(Math.abs(about!.x - now!.x)).toBeLessThan(2); // same column
+    await page.locator('[data-tab="experience"]').tap();
+    await expect(page.locator('[data-tab-panel="experience"]')).toBeVisible();
+    await expect(page.locator('#resume-link')).toBeVisible();
+  });
+});
