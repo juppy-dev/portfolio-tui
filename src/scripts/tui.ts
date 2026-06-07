@@ -111,8 +111,8 @@ const contactForm = document.querySelector<HTMLFormElement>('#contact-form');
 const contactStatus = document.querySelector<HTMLElement>('#contact-status');
 
 document
-  .querySelector('[data-action="contact"]')
-  ?.addEventListener('click', () => contactDialog?.showModal());
+  .querySelectorAll('[data-action="contact"]')
+  .forEach((btn) => btn.addEventListener('click', () => contactDialog?.showModal()));
 
 document.querySelectorAll('[data-close-dialog]').forEach((btn) =>
   btn.addEventListener('click', () => btn.closest('dialog')?.close())
