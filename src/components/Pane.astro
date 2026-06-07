@@ -8,5 +8,7 @@ const { title, id } = Astro.props;
 
 <section class="pane" id={`pane-${id}`} data-pane={id} tabindex="-1" aria-label={title}>
   <h2 class="pane-title">{title}</h2>
-  <slot />
+  <div class="pane-body">
+    <slot />
+  </div>
 </section>

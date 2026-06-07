@@ -103,9 +103,18 @@ kbd {
 /* ---- panes ---- */
 .pane {
   position: relative;
+  display: flex;
+  flex-direction: column;
   border: 1px solid var(--border);
   border-radius: 6px;
   padding: 1rem 0.85rem 0.65rem;
+  min-height: 0;
+  /* overflow stays visible so the inset title isn't clipped;
+     scrolling lives on .pane-body instead */
+}
+
+.pane-body {
+  flex: 1;
   min-height: 0;
   overflow: auto;
 }

@@ -47,7 +47,7 @@ function visibleEntries(): HTMLElement[] {
 function moveSelection(delta: number): void {
   const entries = visibleEntries();
   if (entries.length === 0) {
-    panes[focusIdx].scrollBy({ top: delta * 48 });
+    panes[focusIdx].querySelector('.pane-body')?.scrollBy({ top: delta * 48 });
     return;
   }
   const current = entries.findIndex((el) => el.classList.contains('selected'));
