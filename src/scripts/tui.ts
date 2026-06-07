@@ -193,6 +193,23 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
+// ---- clock ----
+const TIMEZONE = 'Europe/Madrid';
+const clockEl = document.querySelector<HTMLElement>('[data-clock]');
+
+function tickClock(): void {
+  if (!clockEl) return;
+  const time = new Intl.DateTimeFormat('en-GB', {
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,
+    timeZone: TIMEZONE,
+  }).format(new Date());
+  clockEl.textContent = `CET ${time}`;
+}
+
+setInterval(tickClock, 60_000);
+
 // ---- boot sequence ----
 const BOOT_LINES = [
   'mounting panes………… ok',
@@ -232,4 +249,5 @@ async function boot(): Promise<void> {
 // ---- init ----
 focusPane(0);
 syncThemeLabel();
+tickClock();
 boot();

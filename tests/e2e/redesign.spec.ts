@@ -22,3 +22,7 @@ test('new panes render and Tab reaches them', async ({ page }) => {
 test('vitals heatmap renders intensity cells', async ({ page }) => {
   expect(await page.locator('.hm-cell').count()).toBeGreaterThan(10);
 });
+
+test('status bar clock shows the time', async ({ page }) => {
+  await expect(page.locator('[data-clock]')).toHaveText(/CET \d{2}:\d{2}/);
+});
