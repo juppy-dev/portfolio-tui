@@ -1,4 +1,5 @@
 name: portfolio-v2
+glyph: '⌂'
 blurb: you are here
 details: |-
   Terminal-style single-page portfolio. Astro + Keystatic + ~200 lines of

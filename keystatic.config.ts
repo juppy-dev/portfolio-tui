@@ -184,6 +184,10 @@ export default config({
       format: { data: 'yaml' },
       schema: {
         name: fields.slug({ name: { label: 'Name' } }),
+        glyph: fields.text({
+          label: 'Glyph',
+          description: 'A short symbol or emoji shown in the detail view, e.g. ◈ ⬡ ▲',
+        }),
         blurb: fields.text({ label: 'One-line blurb' }),
         details: fields.text({ label: 'Details', multiline: true }),
         year: fields.text({ label: 'Year' }),

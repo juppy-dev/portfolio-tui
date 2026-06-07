@@ -1,4 +1,5 @@
 name: drift
+glyph: '⚑'
 blurb: feature flags without the dashboard tax
 details: |-
   Git-native feature flags: flags live as TOML in your repo, evaluated at

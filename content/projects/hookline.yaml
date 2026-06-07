@@ -1,4 +1,5 @@
 name: hookline
+glyph: '⟜'
 blurb: webhook relay & replay
 details: |-
   Receive, inspect, transform, and replay webhooks with a TUI client.

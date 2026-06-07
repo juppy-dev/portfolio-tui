@@ -1,4 +1,5 @@
 name: pulseboard
+glyph: '◉'
 blurb: realtime analytics for small teams
 details: |-
   Self-hostable product analytics with live dashboards over WebSockets.

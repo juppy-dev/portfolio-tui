@@ -56,7 +56,8 @@ const certGroups = [...groupBy(certifications, (c) => c.category).entries()];
         </ul>
         {projects.map((p, i) => (
           <div class="sub-content" data-sub-panel={`proj-${i}`} hidden={i !== 0}>
-            <h3>{p.name} {p.year && <span class="year">{p.year}</span>}</h3>
+            {p.glyph && <div class="project-glyph" aria-hidden="true">{p.glyph}</div>}
+            <h3 class="project-title">{p.name} {p.year && <span class="year">{p.year}</span>}</h3>
             {p.blurb && <p class="dim sub-blurb">{p.blurb}</p>}
             <p class="prose">{p.details}</p>
             {p.links.length > 0 && (

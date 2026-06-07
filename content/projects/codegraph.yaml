@@ -1,4 +1,5 @@
 name: codegraph
+glyph: '◈'
 blurb: code intelligence MCP server
 details: |-
   A tree-sitter-parsed knowledge graph of every symbol, edge, and file in a
