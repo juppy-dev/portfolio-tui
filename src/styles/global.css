@@ -333,49 +333,48 @@ kbd {
   font-size: 0.85em;
 }
 
-/* lazygit-style sidebar nav for the work pane on desktop:
-   vertical rail on the left, panels on the right. Mobile keeps the
-   horizontal underline tabs above. */
-@media (min-width: 801px) {
-  #pane-work .pane-body {
-    display: grid;
-    grid-template-columns: 170px minmax(0, 1fr);
-    column-gap: 1.1rem;
-    align-items: start;
-  }
+/* lazygit-style sub-navigation INSIDE each work tab panel:
+   item rail on the left, selected item's content on the right.
+   Collapses to a wrapped chip row above the content on mobile. */
+.sub-layout {
+  display: grid;
+  grid-template-columns: 190px minmax(0, 1fr);
+  column-gap: 1.1rem;
+  align-items: start;
+}
 
-  #pane-work .tabs {
-    grid-row: 1;
-    grid-column: 1;
-    flex-direction: column;
-    gap: 2px;
-    margin-bottom: 0;
-    border-bottom: none;
-    border-right: 1px solid var(--glass-border);
-    padding-right: 0.7rem;
-    align-self: stretch;
-  }
+.subnav {
+  grid-row: 1;
+  grid-column: 1;
+  border-right: 1px solid var(--glass-border);
+  padding-right: 0.7rem;
+  align-self: stretch;
+}
 
-  #pane-work [data-tab-panel] {
-    grid-row: 1;
-    grid-column: 2;
-    min-width: 0;
-  }
+.sub-content {
+  grid-row: 1;
+  grid-column: 2;
+  min-width: 0;
+}
 
-  #pane-work .tabs [role='tab'] {
-    text-align: left;
-    padding: 3px 10px;
-    border-radius: 6px;
-    transition: color 160ms ease, background 160ms ease;
-  }
+.sub-content h3 {
+  margin: 0 0 0.4rem;
+  font-size: 0.95rem;
+}
 
-  #pane-work .tabs [role='tab']::after {
-    display: none;
-  }
+.sub-content .sub-blurb {
+  margin: 0 0 0.6rem;
+}
 
-  #pane-work .tabs [role='tab'][aria-selected='true'] {
-    background: color-mix(in srgb, var(--accent) 12%, transparent);
-  }
+.bullets {
+  margin: 0;
+  padding-left: 1.1rem;
+  max-width: 70ch;
+  color: var(--dim);
+}
+
+.bullets li {
+  margin-bottom: 0.3rem;
 }
 
 /* ---- entry lists ---- */
@@ -420,16 +419,6 @@ kbd {
   font-size: 0.8rem;
 }
 
-.entries [data-entry-details] {
-  border-left: 1px solid var(--glass-border);
-  margin: 0.2rem 0 0.4rem 6px;
-  padding: 0.2rem 0 0.3rem 1rem;
-  max-width: 70ch;
-  color: var(--dim);
-  white-space: pre-line;
-}
-
-.entries [data-entry-details] a,
 .links a {
   color: var(--cyan);
   text-decoration: none;
@@ -437,13 +426,11 @@ kbd {
   transition: color 150ms ease;
 }
 
-.entries [data-entry-details] a::after,
 .links a:not(.has-icon)::after {
   content: ' ↗';
   font-size: 0.85em;
 }
 
-.entries [data-entry-details] a:hover,
 .links a:hover {
   color: var(--fg);
 }
@@ -489,18 +476,25 @@ kbd {
   align-items: flex-start;
 }
 
-/* Stack art above the rows whenever the PANE (not the viewport) is narrow —
-   the left grid column's width varies, so a container query is the right tool. */
-@container nowpane (max-width: 360px) {
-  .now {
-    flex-direction: column;
-    gap: 0.75rem;
-  }
+/* Decorative icon badge spanning the rows' full height. */
+.now-badge {
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 64px;
+  border: 1px solid color-mix(in srgb, var(--badge-color) 35%, transparent);
+  background: color-mix(in srgb, var(--badge-color) 10%, transparent);
+  border-radius: 10px;
+  color: var(--badge-color);
 }
 
-.now-art {
-  margin: 0;
-  line-height: 1.2;
+/* The badge is decorative — drop it when the PANE (not the viewport) is
+   narrow; a container query tracks the actual grid column width. */
+@container nowpane (max-width: 360px) {
+  .now-badge {
+    display: none;
+  }
 }
 
 .kv {
@@ -518,32 +512,33 @@ kbd {
   margin: 0;
 }
 
-/* ---- tech pane ---- */
+/* ---- tech pane: one tinted box per category, one hue per category ---- */
 .tech-group {
-  margin-bottom: 0.7rem;
-  line-height: 1.9;
+  background: color-mix(in srgb, var(--gc) 7%, transparent);
+  border: 1px solid color-mix(in srgb, var(--gc) 22%, transparent);
+  border-radius: 8px;
+  padding: 0.45rem 0.6rem 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .tech-group .label {
-  color: var(--blue);
-  margin-right: 0.6rem;
-  font-size: 0.85rem;
+  display: block;
+  color: var(--gc);
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
 }
 
 .badge {
   display: inline-block;
   border-radius: 999px;
   padding: 1px 10px;
-  margin: 2px 7px 2px 0;
+  margin: 2px 6px 2px 0;
   font-size: 0.8rem;
+  color: var(--gc);
+  background: color-mix(in srgb, var(--gc) 14%, transparent);
 }
-
-.badge-blue   { background: color-mix(in srgb, var(--blue) 13%, transparent);   color: var(--blue); }
-.badge-red    { background: color-mix(in srgb, var(--red) 13%, transparent);    color: var(--red); }
-.badge-yellow { background: color-mix(in srgb, var(--yellow) 13%, transparent); color: var(--yellow); }
-.badge-green  { background: color-mix(in srgb, var(--green) 13%, transparent);  color: var(--green); }
-.badge-violet { background: color-mix(in srgb, var(--violet) 13%, transparent); color: var(--violet); }
-.badge-cyan   { background: color-mix(in srgb, var(--cyan) 13%, transparent);   color: var(--cyan); }
 
 /* ---- ps pane ---- */
 .ps-list {
@@ -751,6 +746,25 @@ dialog textarea:focus {
   .tab-num {
     display: none;
   }
+
+  /* the sub-rail becomes a wrapped chip row above the content */
+  .sub-layout {
+    display: block;
+  }
+
+  .subnav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px 0.4rem;
+    border-right: none;
+    border-bottom: 1px solid var(--glass-border);
+    padding: 0 0 0.4rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .subnav > li {
+    margin-bottom: 0;
+  }
 }
 
 @media (max-width: 480px) {
@@ -760,12 +774,6 @@ dialog textarea:focus {
 
   .hero-art-fallback {
     display: inline-block;
-  }
-}
-
-@media (max-width: 360px) {
-  .now-art {
-    display: none;
   }
 }
 

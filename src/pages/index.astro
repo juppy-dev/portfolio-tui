@@ -87,11 +87,11 @@ const LINK_ICONS: Record<string, string> = {
 
         <Pane title="tech" id="tech" icon="cpu">
           {tech.length === 0 && <p class="dim">// nothing here yet</p>}
-          {tech.map((group) => (
-            <div class="tech-group">
+          {tech.map((group, gi) => (
+            <div class="tech-group" style={`--gc: var(--${cycleColor(gi)})`}>
               <span class="label">{group.name}</span>
-              {group.items.map((item, i) => (
-                <span class={`badge badge-${cycleColor(i)}`}>{item}</span>
+              {group.items.map((item) => (
+                <span class="badge">{item}</span>
               ))}
             </div>
           ))}
@@ -104,7 +104,7 @@ const LINK_ICONS: Record<string, string> = {
 
       <footer class="bar status-bar">
         <span class="hints">
-          <span class="desktop-hints"><kbd>tab</kbd> pane · <kbd>1-5</kbd> work · <kbd>j/k</kbd> nav</span>
+          <span class="desktop-hints"><kbd>tab</kbd> pane · <kbd>1-4</kbd> work · <kbd>j/k</kbd> nav</span>
           <button data-action="contact"><Icon name="mail" /> contact <kbd>c</kbd></button>
           <button data-action="theme"><Icon name="palette" /> <span data-theme-label>andromeda</span> <kbd>t</kbd></button>
           <button data-action="help"><Icon name="help" /> help <kbd>?</kbd></button>
