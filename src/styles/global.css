@@ -328,6 +328,56 @@ kbd {
   transform: scaleX(1);
 }
 
+.tab-num {
+  margin-right: 0.45em;
+  font-size: 0.85em;
+}
+
+/* lazygit-style sidebar nav for the work pane on desktop:
+   vertical rail on the left, panels on the right. Mobile keeps the
+   horizontal underline tabs above. */
+@media (min-width: 801px) {
+  #pane-work .pane-body {
+    display: grid;
+    grid-template-columns: 170px minmax(0, 1fr);
+    column-gap: 1.1rem;
+    align-items: start;
+  }
+
+  #pane-work .tabs {
+    grid-row: 1;
+    grid-column: 1;
+    flex-direction: column;
+    gap: 2px;
+    margin-bottom: 0;
+    border-bottom: none;
+    border-right: 1px solid var(--glass-border);
+    padding-right: 0.7rem;
+    align-self: stretch;
+  }
+
+  #pane-work [data-tab-panel] {
+    grid-row: 1;
+    grid-column: 2;
+    min-width: 0;
+  }
+
+  #pane-work .tabs [role='tab'] {
+    text-align: left;
+    padding: 3px 10px;
+    border-radius: 6px;
+    transition: color 160ms ease, background 160ms ease;
+  }
+
+  #pane-work .tabs [role='tab']::after {
+    display: none;
+  }
+
+  #pane-work .tabs [role='tab'][aria-selected='true'] {
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
+  }
+}
+
 /* ---- entry lists ---- */
 .entries {
   list-style: none;
@@ -335,11 +385,19 @@ kbd {
   padding: 0;
 }
 
+.entries > li {
+  margin-bottom: 4px;
+}
+
+.entries > li:not([data-entry]) {
+  padding: 2px 8px;
+}
+
 .entries .entry-line {
   display: block;
   width: 100%;
   text-align: left;
-  padding: 2px 6px;
+  padding: 4px 8px;
   border-radius: 6px;
   transition: background 150ms ease;
 }
@@ -420,10 +478,24 @@ kbd {
 }
 
 /* ---- key/value grids (now, uses, vitals) ---- */
+#pane-now {
+  container-type: inline-size;
+  container-name: nowpane;
+}
+
 .now {
   display: flex;
   gap: 1.25rem;
   align-items: flex-start;
+}
+
+/* Stack art above the rows whenever the PANE (not the viewport) is narrow —
+   the left grid column's width varies, so a container query is the right tool. */
+@container nowpane (max-width: 360px) {
+  .now {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
 }
 
 .now-art {
@@ -448,20 +520,21 @@ kbd {
 
 /* ---- tech pane ---- */
 .tech-group {
-  margin-bottom: 0.45rem;
+  margin-bottom: 0.7rem;
+  line-height: 1.9;
 }
 
 .tech-group .label {
   color: var(--blue);
-  margin-right: 0.5rem;
+  margin-right: 0.6rem;
   font-size: 0.85rem;
 }
 
 .badge {
   display: inline-block;
   border-radius: 999px;
-  padding: 1px 9px;
-  margin: 2px 3px 2px 0;
+  padding: 1px 10px;
+  margin: 2px 7px 2px 0;
   font-size: 0.8rem;
 }
 
@@ -478,6 +551,10 @@ kbd {
   margin: 0;
   padding: 0;
   font-size: 0.85rem;
+}
+
+.ps-list li {
+  margin-bottom: 3px;
 }
 
 .ps-state {
@@ -661,12 +738,11 @@ dialog textarea:focus {
     background-attachment: fixed;
   }
 
-  /* art stacks above the rows on narrow screens */
-  .now {
-    flex-direction: column;
+  .desktop-hints {
+    display: none;
   }
 
-  .desktop-hints {
+  .tab-num {
     display: none;
   }
 }
