@@ -1,0 +1,35 @@
+rows:
+  - key: uptime
+    value: 12y in production
+  - key: shipped
+    value: 23 projects
+  - key: oss stars
+    value: 2.4k ★
+heatmapLabel: last 26 weeks
+heatmap:
+  - 1
+  - 2
+  - 4
+  - 3
+  - 1
+  - 4
+  - 2
+  - 0
+  - 3
+  - 2
+  - 4
+  - 1
+  - 3
+  - 4
+  - 2
+  - 3
+  - 0
+  - 2
+  - 4
+  - 3
+  - 1
+  - 2
+  - 3
+  - 4
+  - 2
+  - 3

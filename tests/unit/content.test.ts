@@ -2,10 +2,14 @@ import { describe, expect, it } from 'vitest';
 import {
   getAbout,
   getExperience,
+  getHero,
   getHighlights,
   getNow,
+  getProcesses,
   getProjects,
   getTech,
+  getUses,
+  getVitals,
 } from '../../src/lib/content';
 
 const EMPTY = 'tests/fixtures/empty';
@@ -46,5 +50,37 @@ describe('content helpers', () => {
   it('throws loudly when required singletons are missing', async () => {
     await expect(getAbout(EMPTY)).rejects.toThrow(/about/);
     await expect(getNow(EMPTY)).rejects.toThrow(/now/);
+  });
+
+  it('reads hero art and tagline', async () => {
+    const hero = await getHero();
+    expect(hero?.art).toContain('█');
+    expect(hero?.tagline).toBeTruthy();
+  });
+
+  it('reads uses rows', async () => {
+    const rows = await getUses();
+    expect(rows.length).toBeGreaterThan(0);
+    expect(rows[0].key).toBeTruthy();
+  });
+
+  it('reads vitals rows and a 0-4 heatmap', async () => {
+    const vitals = await getVitals();
+    expect(vitals?.rows.length).toBeGreaterThan(0);
+    expect(vitals?.heatmap.length).toBeGreaterThan(0);
+    expect(vitals?.heatmap.every((v) => v >= 0 && v <= 4)).toBe(true);
+  });
+
+  it('reads processes with valid states', async () => {
+    const procs = await getProcesses();
+    expect(procs.length).toBeGreaterThan(0);
+    expect(procs.every((p) => ['running', 'sleeping', 'zombie'].includes(p.state))).toBe(true);
+  });
+
+  it('tolerates missing new singletons', async () => {
+    expect(await getHero(EMPTY)).toBeNull();
+    expect(await getUses(EMPTY)).toEqual([]);
+    expect(await getVitals(EMPTY)).toBeNull();
+    expect(await getProcesses(EMPTY)).toEqual([]);
   });
 });

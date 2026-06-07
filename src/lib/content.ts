@@ -38,3 +38,19 @@ export async function getExperience(dir?: string) {
   const entries = await reader(dir).collections.experience.all();
   return entries.map((e) => e.entry).sort((a, b) => a.order - b.order);
 }
+
+export async function getHero(dir?: string) {
+  return await reader(dir).singletons.hero.read();
+}
+
+export async function getUses(dir?: string) {
+  return (await reader(dir).singletons.uses.read())?.rows ?? [];
+}
+
+export async function getVitals(dir?: string) {
+  return await reader(dir).singletons.vitals.read();
+}
+
+export async function getProcesses(dir?: string) {
+  return (await reader(dir).singletons.processes.read())?.items ?? [];
+}

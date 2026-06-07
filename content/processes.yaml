@@ -1,0 +1,13 @@
+items:
+  - name: codegraph
+    state: running
+    note: cpu 87%
+  - name: portfolio-v2
+    state: running
+    note: cpu 64%
+  - name: hookline
+    state: sleeping
+    note: cpu 2%
+  - name: that-game-engine
+    state: zombie
+    note: since 2019

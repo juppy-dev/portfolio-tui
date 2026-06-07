@@ -1,0 +1,13 @@
+rows:
+  - key: machine
+    value: MacBook Pro M3 Max
+  - key: display
+    value: Studio Display 27"
+  - key: editor
+    value: neovim (btw)
+  - key: terminal
+    value: ghostty + tmux
+  - key: keyboard
+    value: ZSA Voyager
+  - key: theme
+    value: tokyo nebula andromeda
