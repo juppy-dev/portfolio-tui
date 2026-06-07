@@ -76,3 +76,12 @@
   --violet: #6fbf7f;
   --cyan: #aaffaa;
 }
+
+/* Derived glass tokens — resolve against whichever theme is active,
+   since var() is evaluated at use time. */
+:root {
+  --glass: color-mix(in srgb, var(--bg) 55%, transparent);
+  --glass-border: color-mix(in srgb, var(--fg) 12%, transparent);
+  --tint-1: color-mix(in srgb, var(--violet) 12%, transparent);
+  --tint-2: color-mix(in srgb, var(--accent) 10%, transparent);
+}
