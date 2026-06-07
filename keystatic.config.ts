@@ -19,6 +19,23 @@ const kvRows = fields.array(
   }
 );
 
+// Like kvRows, but each row may carry a brand icon and/or a link (used by Now).
+const nowRows = fields.array(
+  fields.object({
+    key: fields.text({ label: 'Key' }),
+    value: fields.text({ label: 'Value' }),
+    icon: fields.text({
+      label: 'Icon',
+      description: 'Optional brand icon name, e.g. rails, spotify',
+    }),
+    url: fields.text({ label: 'Link', description: 'Optional — makes the value a link' }),
+  }),
+  {
+    label: 'Rows',
+    itemLabel: (props) => `${props.fields.key.value}: ${props.fields.value.value}`,
+  }
+);
+
 export default config({
   storage: { kind: 'local' },
   singletons: {
@@ -50,7 +67,7 @@ export default config({
           ],
           defaultValue: 'accent',
         }),
-        rows: kvRows,
+        rows: nowRows,
       },
     }),
     highlights: singleton({
@@ -187,6 +204,11 @@ export default config({
         glyph: fields.text({
           label: 'Glyph',
           description: 'A short symbol or emoji shown in the detail view, e.g. ◈ ⬡ ▲',
+        }),
+        order: fields.integer({
+          label: 'Sort order',
+          description: 'Lower = listed first',
+          defaultValue: 0,
         }),
         blurb: fields.text({ label: 'One-line blurb' }),
         details: fields.text({ label: 'Details', multiline: true }),

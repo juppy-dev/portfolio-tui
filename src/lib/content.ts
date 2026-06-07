@@ -29,9 +29,7 @@ export async function getTech(dir?: string) {
 
 export async function getProjects(dir?: string) {
   const entries = await reader(dir).collections.projects.all();
-  return entries
-    .map((e) => e.entry)
-    .sort((a, b) => (b.year ?? '').localeCompare(a.year ?? ''));
+  return entries.map((e) => e.entry).sort((a, b) => a.order - b.order);
 }
 
 export async function getExperience(dir?: string) {

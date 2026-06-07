@@ -30,10 +30,10 @@ describe('content helpers', () => {
     expect(now.artColor).toBeTruthy();
   });
 
-  it('sorts projects by year descending', async () => {
+  it('sorts projects by explicit order ascending', async () => {
     const projects = await getProjects();
-    const years = projects.map((p) => p.year ?? '');
-    expect(years).toEqual([...years].sort().reverse());
+    const orders = projects.map((p) => p.order);
+    expect(orders).toEqual([...orders].sort((a, b) => a - b));
   });
 
   it('sorts experience by order ascending', async () => {
