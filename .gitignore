@@ -1,0 +1,9 @@
+# brainstorming companion sessions
+.superpowers/
+
+# deps & build
+node_modules/
+dist/
+
+# misc
+.DS_Store
