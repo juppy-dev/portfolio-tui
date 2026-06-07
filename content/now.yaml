@@ -1,7 +1,7 @@
-art: |-
-  /\_/\
+art: |2-
+   /\_/\
   ( o.o )
-  > ^ <
+   > ^ <
 artColor: accent
 rows:
   - key: Building
