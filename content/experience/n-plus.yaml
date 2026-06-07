@@ -1,0 +1,9 @@
+role: Growth Engineer
+company: N+ (nplusbikes.com)
+period: May 2026 — now
+order: 0
+bullets:
+  - N+ is a world leader in electric-bike innovation, partnering with performance brands like McLaren, Ford, Volkswagen, and Mercedes-Benz
+  - Build the infrastructure and integrations behind their global expansion — splitting time across code, marketing tooling, and analytics
+  - Launched a new brand site to a global market with custom Stripe integrations and from-scratch leasing flows that play well with partner APIs
+  - Brought modern DevOps and version control to the org — adopted 6 unmaintained codebases and got them to industry best practices

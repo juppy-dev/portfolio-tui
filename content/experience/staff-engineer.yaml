@@ -1,9 +1,0 @@
-role: Staff Engineer
-company: onearrow.io
-period: 2023 — now
-order: 0
-bullets:
-  - Own architecture for the realtime collaboration platform (1.2M MAU)
-  - Drove the org-wide TypeScript monorepo migration — build times down 70%
-  - Run the developer-experience guild; cut median PR cycle time from 2 days to 4 hours
-  - Hands-on daily — roughly 60% code, 40% leverage

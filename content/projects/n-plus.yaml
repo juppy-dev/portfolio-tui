@@ -1,0 +1,13 @@
+name: N+
+glyph: ⚡
+order: 0
+blurb: global brand site for a world-leading e-bike innovator
+details: |-
+  The new global storefront for N+, who partner with performance brands like
+  McLaren, Ford, Volkswagen, and Mercedes-Benz. Custom Stripe integrations and
+  from-scratch leasing flows built to play well with partner APIs, plus modern
+  DevOps and version control brought across the org.
+year: '2026'
+links:
+  - label: nplusbikes.com
+    url: https://nplusbikes.com

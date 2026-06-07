@@ -1,14 +1,26 @@
 artColor: accent
 rows:
   - key: Building
-    value: codegraph v2
+    value: Custom leasing flows on Shopify for N+
+    icon: ''
+    url: ''
   - key: Learning
-    value: rust + ratatui
+    value: Ruby on Rails
+    icon: rails
+    url: ''
   - key: Reading
-    value: Designing Data-Intensive Applications
+    value: Neuromancer — William Gibson
+    icon: ''
+    url: ''
   - key: Listening
-    value: synthwave, mostly
+    value: Lofi Work Vibe
+    icon: spotify
+    url: https://open.spotify.com/playlist/07yYYSkSkDjSkvNfOf0lHb?si=c6287144265b4a5e
   - key: Location
-    value: remote (CET)
+    value: Naga City, PH (remote)
+    icon: ''
+    url: ''
   - key: Status
-    value: open to interesting work
+    value: available for select projects
+    icon: ''
+    url: ''

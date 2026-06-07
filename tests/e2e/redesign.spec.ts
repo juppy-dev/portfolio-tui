@@ -33,7 +33,7 @@ test('key 4 reaches certification; education lives there as a category', async (
   await page.keyboard.press('4');
   const panel = page.locator('[data-tab-panel="certification"]');
   await expect(panel).toBeVisible();
-  await expect(panel).toContainText('AWS');
+  await expect(panel).toContainText('Anthropic');
   // education is the last subnav category in the certification panel
   await panel.locator('[data-sub="cert-edu"] .entry-line').click();
   await expect(page.locator('[data-sub-panel="cert-edu"]')).toBeVisible();
@@ -43,7 +43,7 @@ test('key 4 reaches certification; education lives there as a category', async (
 test('highlights are grouped by category in a subnav', async ({ page }) => {
   await page.keyboard.press('3');
   const panel = page.locator('[data-tab-panel="highlights"]');
-  await expect(panel.locator('.subnav [data-entry]').first()).toContainText('engineering');
+  await expect(panel.locator('.subnav [data-entry]').first()).toContainText('e-commerce');
   await panel.locator('.subnav [data-entry]', { hasText: 'leadership' }).locator('.entry-line').click();
   await expect(panel.locator('.sub-content:visible')).toContainText('Mentored');
 });

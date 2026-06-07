@@ -1,8 +1,0 @@
-role: Senior Engineer
-company: Nimbus Labs
-period: 2019 — 2023
-order: 1
-bullets:
-  - Built the payments integration from RFC to production — $30M/yr processed
-  - Designed the event-sourcing backbone replacing a brittle cron architecture
-  - Interviewed 100+ candidates; rewrote the loop to be take-home-free

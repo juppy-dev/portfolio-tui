@@ -1,0 +1,12 @@
+name: Liberty Supply
+glyph: ◆
+order: 3
+blurb: high-performance Shopify store, all-time sales highs
+details: |-
+  A high-performance Shopify OS 2.0 store with a custom Vite CI/CD pipeline,
+  team leadership, and enterprise CRM/ERP integrations — engineered for speed
+  and conversion, and it drove all-time sales highs.
+year: '2025'
+links:
+  - label: libertysupply.com
+    url: https://libertysupply.com

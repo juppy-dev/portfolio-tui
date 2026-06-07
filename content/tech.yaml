@@ -2,27 +2,49 @@ groups:
   - name: languages
     items:
       - typescript
-      - rust
+      - javascript
+      - ruby
       - python
-      - go
       - swift
+      - liquid
+      - sql
   - name: frontend
     items:
-      - astro
       - react
-      - svelte
+      - next.js
+      - remix
+      - astro
       - tailwind
+      - flutter
   - name: backend
     items:
-      - node
-      - postgres
-      - redis
+      - node.js
+      - rails
       - graphql
-  - name: infra & tools
+      - postgresql
+      - mongodb
+      - sanity
+  - name: commerce & growth
     items:
-      - docker
-      - cloudflare
+      - shopify
+      - hydrogen
+      - stripe
+      - cro
+      - a/b testing
+      - ga4/gtm
+      - hotjar
+      - seo
+  - name: cloud & devops
+    items:
       - aws
-      - playwright
-      - neovim
-      - ghostty
+      - azure
+      - gcp
+      - cloudflare
+      - vite
+      - git
+  - name: ai & automation
+    items:
+      - claude
+      - codex
+      - ollama
+      - n8n

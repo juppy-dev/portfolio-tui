@@ -1,13 +1,13 @@
 items:
-  - name: codegraph
+  - name: notiyf
     state: running
-    note: cpu 87%
-  - name: portfolio-v2
+    note: notifs for the attentionally-challenged
+  - name: tofu
     state: running
-    note: cpu 64%
-  - name: hookline
+    note: ai-powered meal plans
+  - name: portfolio-tui
+    state: running
+    note: you're looking at it
+  - name: hotel-booking-saas
     state: sleeping
-    note: cpu 2%
-  - name: that-game-engine
-    state: zombie
-    note: since 2019
+    note: on ice, for now

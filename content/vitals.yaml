@@ -1,10 +1,10 @@
 rows:
-  - key: uptime
-    value: 12y in production
+  - key: experience
+    value: 12 years building
   - key: shipped
-    value: 23 projects
-  - key: oss stars
-    value: 2.4k ★
+    value: 50+ projects
+  - key: fuel
+    value: 2–3 coffees / day
 heatmapLabel: last 26 weeks
 heatmap:
   - 1

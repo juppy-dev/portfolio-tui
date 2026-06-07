@@ -1,0 +1,9 @@
+role: Senior Software Engineer
+company: Liberty Supply
+period: Jan 2025 — Oct 2025
+order: 1
+bullets:
+  - Engineered a high-performance Shopify OS 2.0 storefront with a custom Liquid theme, driving all-time sales highs through CRO
+  - Led a team of Shopify developers — owning code quality, architecture decisions, and theme app extensions
+  - Built a custom Vite-based CI/CD pipeline to automate theme deployment and QA
+  - Wired up full-stack Node.js integrations connecting Shopify to internal CRM and ERP systems

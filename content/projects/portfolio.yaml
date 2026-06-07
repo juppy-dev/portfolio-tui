@@ -1,0 +1,12 @@
+name: portfolio-tui
+glyph: ⌂
+order: 4
+blurb: the terminal you're reading right now
+details: |-
+  This site. A terminal-style single-page portfolio — Astro + Keystatic and a
+  few hundred lines of vanilla TypeScript for the TUI layer. Keyboard-first:
+  hit ? for the keymap.
+year: '2026'
+links:
+  - label: github
+    url: https://github.com/juppy-dev/portfolio-tui

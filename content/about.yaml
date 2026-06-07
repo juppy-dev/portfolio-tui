@@ -1,20 +1,20 @@
 name: Juppy
 intro: |-
-  Hi, I'm Juppy — a product-minded engineer who has spent the last decade
-  building `developer tools`, `realtime systems`, and the occasional thing
-  that's just for fun.
+  Hi, I'm Juppy. I'm a `software engineer` — the kind who falls down rabbit
+  holes, keeps half a dozen side projects on life support, and genuinely
+  loves shipping things people use.
 
-  I care about `fast feedback loops`, software that respects its users,
-  and interfaces with personality. This site is a terminal because every
-  site I love is a terminal at heart.
+  Over a decade of building for the web taught me the best work happens with
+  people who care. So that's what I look for: brands and teams out to do
+  `something cool`, who want someone to sweat the details alongside them.
 links:
   - label: github
-    url: https://github.com/REPLACE_ME
+    url: https://github.com/juppy-dev
   - label: linkedin
-    url: https://linkedin.com/in/REPLACE_ME
+    url: https://linkedin.com/in/paolorarroyo
   - label: instagram
     url: https://instagram.com/juppy.dev
   - label: threads
     url: https://www.threads.net/@juppy.dev
   - label: email
-    url: mailto:paolo@onearrow.io
+    url: mailto:hello@juppy.dev

@@ -1,0 +1,12 @@
+name: Novita
+glyph: ✦
+order: 1
+blurb: award-winning build for Europe's largest knitting supplier
+details: |-
+  Senior developer on the award-winning, full-stack e-commerce build for
+  Novita — Europe's largest knitting supplier. A custom Shopify OS 2.0 Liquid
+  theme on a headless architecture.
+year: '2024'
+links:
+  - label: novita.com
+    url: https://novita.com
