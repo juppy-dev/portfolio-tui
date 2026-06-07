@@ -66,3 +66,43 @@ test('clicking the status-bar theme button cycles theme', async ({ page }) => {
   await page.locator('[data-action="theme"]').click();
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'catppuccin-mocha');
 });
+
+test('c opens the contact dialog and Esc closes it', async ({ page }) => {
+  await page.keyboard.press('c');
+  await expect(page.locator('#contact-dialog')).toBeVisible();
+  await page.keyboard.press('Escape');
+  await expect(page.locator('#contact-dialog')).toBeHidden();
+});
+
+test('typing inside the form does not trigger keybinds', async ({ page }) => {
+  await page.keyboard.press('c');
+  await page.locator('#contact-dialog [name="name"]').click();
+  await page.keyboard.type('tttt'); // 't' would cycle the theme if keybinds leaked
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'andromeda');
+  await expect(page.locator('#contact-dialog [name="name"]')).toHaveValue('tttt');
+});
+
+test('successful submit shows sent state', async ({ page }) => {
+  await page.route('https://api.web3forms.com/submit', (route) =>
+    route.fulfill({ status: 200, contentType: 'application/json', body: '{"success":true}' })
+  );
+  await page.keyboard.press('c');
+  await page.locator('#contact-dialog [name="name"]').fill('Test');
+  await page.locator('#contact-dialog [name="email"]').fill('test@example.com');
+  await page.locator('#contact-dialog [name="message"]').fill('Hello');
+  await page.locator('#contact-dialog button[type="submit"]').click();
+  await expect(page.locator('#contact-status')).toContainText('message sent');
+});
+
+test('failed submit shows mailto fallback', async ({ page }) => {
+  await page.route('https://api.web3forms.com/submit', (route) =>
+    route.fulfill({ status: 500, body: '{}' })
+  );
+  await page.keyboard.press('c');
+  await page.locator('#contact-dialog [name="name"]').fill('Test');
+  await page.locator('#contact-dialog [name="email"]').fill('test@example.com');
+  await page.locator('#contact-dialog [name="message"]').fill('Hello');
+  await page.locator('#contact-dialog button[type="submit"]').click();
+  await expect(page.locator('#contact-status')).toContainText('failed');
+  await expect(page.locator('#contact-status a')).toHaveAttribute('href', /^mailto:/);
+});

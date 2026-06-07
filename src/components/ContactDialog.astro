@@ -1,0 +1,22 @@
+---
+const accessKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? '';
+const email = 'paolo@onearrow.io';
+---
+
+<dialog id="contact-dialog" aria-label="contact form">
+  <h2>// contact</h2>
+  <form id="contact-form" method="dialog" data-email={email}>
+    <input type="hidden" name="access_key" value={accessKey} />
+    <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" />
+    <input name="name" placeholder="name" required autocomplete="name" />
+    <input name="email" type="email" placeholder="email" required autocomplete="email" />
+    <textarea name="message" placeholder="message" rows="5" required></textarea>
+    <div class="form-actions">
+      <span id="contact-status" role="status"></span>
+      <span>
+        <button type="button" data-close-dialog class="dim">[esc] close</button>
+        <button type="submit">[enter] send</button>
+      </span>
+    </div>
+  </form>
+</dialog>

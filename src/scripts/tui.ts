@@ -105,6 +105,38 @@ document
   .querySelector('[data-action="theme"]')
   ?.addEventListener('click', cycleTheme);
 
+// ---- contact dialog ----
+const contactDialog = document.querySelector<HTMLDialogElement>('#contact-dialog');
+const contactForm = document.querySelector<HTMLFormElement>('#contact-form');
+const contactStatus = document.querySelector<HTMLElement>('#contact-status');
+
+document
+  .querySelector('[data-action="contact"]')
+  ?.addEventListener('click', () => contactDialog?.showModal());
+
+document.querySelectorAll('[data-close-dialog]').forEach((btn) =>
+  btn.addEventListener('click', () => btn.closest('dialog')?.close())
+);
+
+contactForm?.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  if (!contactStatus) return;
+  contactStatus.textContent = 'sending…';
+  try {
+    const res = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify(Object.fromEntries(new FormData(contactForm))),
+    });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    contactStatus.innerHTML = '<span class="sent">✓ message sent</span>';
+    contactForm.reset();
+  } catch {
+    const email = contactForm.dataset.email;
+    contactStatus.innerHTML = `<span class="err">✗ failed</span> — retry or <a href="mailto:${email}">email me</a>`;
+  }
+});
+
 // ---- keyboard map ----
 document.addEventListener('keydown', (e) => {
   if (isTyping(e)) return; // never steal keys from form fields
@@ -136,6 +168,10 @@ document.addEventListener('keydown', (e) => {
       toggleSelected();
       break;
     }
+    case 'c':
+      e.preventDefault();
+      contactDialog?.showModal();
+      break;
     case 't':
       cycleTheme();
       break;
