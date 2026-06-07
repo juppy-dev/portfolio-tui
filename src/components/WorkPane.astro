@@ -1,0 +1,74 @@
+---
+import Pane from './Pane.astro';
+import { getExperience, getHighlights, getProjects } from '../lib/content';
+
+const projects = await getProjects();
+const experience = await getExperience();
+const highlights = await getHighlights();
+const tabs = ['projects', 'experience', 'highlights'] as const;
+---
+
+<Pane title="work" id="work">
+  <div class="tabs" role="tablist" aria-label="work sections">
+    {tabs.map((tab, i) => (
+      <button role="tab" data-tab={tab} aria-selected={i === 0 ? 'true' : 'false'}>
+        {i + 1}:{tab}
+      </button>
+    ))}
+  </div>
+
+  <div data-tab-panel="projects" role="tabpanel">
+    {projects.length === 0 && <p class="dim">// nothing here yet</p>}
+    <ul class="entries">
+      {projects.map((p) => (
+        <li data-entry>
+          <button class="entry-line" aria-expanded="false">
+            <span class="marker">▸</span> {p.name}
+            {p.blurb && <span class="dim"> — {p.blurb}</span>}
+            {p.year && <span class="dim"> ({p.year})</span>}
+          </button>
+          <div data-entry-details hidden>
+            {p.details}
+            {p.links.length > 0 && (
+              <p>
+                {p.links.map((l) => (
+                  <a href={l.url}>[{l.label}]</a>
+                ))}
+              </p>
+            )}
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
+
+  <div data-tab-panel="experience" role="tabpanel" hidden>
+    <p><a id="resume-link" href="/resume.pdf" download>[↓ resume.pdf]</a> <span class="dim desktop-hints">(or press d)</span></p>
+    {experience.length === 0 && <p class="dim">// nothing here yet</p>}
+    <ul class="entries">
+      {experience.map((e) => (
+        <li data-entry>
+          <button class="entry-line" aria-expanded="false">
+            <span class="marker">▸</span> {e.role} <span class="dim">@ {e.company}</span>
+            <span class="dim"> · {e.period}</span>
+          </button>
+          <div data-entry-details hidden>
+            {e.bullets.map((b) => `• ${b}`).join('\n')}
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
+
+  <div data-tab-panel="highlights" role="tabpanel" hidden>
+    {highlights.length === 0 && <p class="dim">// nothing here yet</p>}
+    <ul class="entries">
+      {highlights.map((h) => (
+        <li>
+          <span style="color: var(--yellow)">★</span> {h.text}
+          {h.year && <span class="dim"> ({h.year})</span>}
+        </li>
+      ))}
+    </ul>
+  </div>
+</Pane>
