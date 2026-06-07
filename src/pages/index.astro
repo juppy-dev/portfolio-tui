@@ -8,6 +8,7 @@ import NowPane from '../components/NowPane.astro';
 import WorkPane from '../components/WorkPane.astro';
 import ContactDialog from '../components/ContactDialog.astro';
 import HelpDialog from '../components/HelpDialog.astro';
+import Icon from '../components/Icon.astro';
 import { getAbout, getTech } from '../lib/content';
 
 const about = await getAbout();
@@ -45,7 +46,7 @@ const title = `${user}@portfolio`;
       </header>
 
       <main class="grid">
-        <Pane title="about" id="about">
+        <Pane title="about" id="about" icon="user">
           <p style="white-space: pre-line">{about.intro}<span class="intro-cursor"></span></p>
           <p>
             {about.links.map((l) => (
@@ -58,7 +59,7 @@ const title = `${user}@portfolio`;
 
         <WorkPane />
 
-        <Pane title="tech" id="tech">
+        <Pane title="tech" id="tech" icon="cpu">
           {tech.length === 0 && <p class="dim">// nothing here yet</p>}
           {tech.map((group) => (
             <div class="tech-group">
@@ -74,9 +75,9 @@ const title = `${user}@portfolio`;
       <footer class="bar status-bar">
         <span class="hints">
           <span class="desktop-hints"><kbd>tab</kbd> pane · <kbd>1-3</kbd> tabs · <kbd>j/k</kbd> nav</span>
-          <button data-action="contact"><kbd>c</kbd> contact</button>
-          <button data-action="theme"><kbd>t</kbd> <span data-theme-label>andromeda</span></button>
-          <button data-action="help"><kbd>?</kbd> help</button>
+          <button data-action="contact"><Icon name="mail" /> contact <kbd>c</kbd></button>
+          <button data-action="theme"><Icon name="palette" /> <span data-theme-label>andromeda</span> <kbd>t</kbd></button>
+          <button data-action="help"><Icon name="help" /> help <kbd>?</kbd></button>
         </span>
         <span class="mode">NORMAL</span>
       </footer>

@@ -5,7 +5,7 @@ import { getNow } from '../lib/content';
 const now = await getNow();
 ---
 
-<Pane title="now" id="now">
+<Pane title="now" id="now" icon="activity">
   <div class="now">
     {now.art && (
       <pre class="now-art" aria-hidden="true" style={`color: var(--${now.artColor})`}>{now.art}</pre>

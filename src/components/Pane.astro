@@ -1,13 +1,16 @@
 ---
+import Icon from './Icon.astro';
+
 interface Props {
   title: string;
   id: string;
+  icon?: string;
 }
-const { title, id } = Astro.props;
+const { title, id, icon } = Astro.props;
 ---
 
 <section class="pane" id={`pane-${id}`} data-pane={id} tabindex="-1" aria-label={title}>
-  <h2 class="pane-title">{title}</h2>
+  <h2 class="pane-title">{icon && <Icon name={icon} />}{title}</h2>
   <div class="pane-body">
     <slot />
   </div>
