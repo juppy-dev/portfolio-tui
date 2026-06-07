@@ -52,3 +52,17 @@ test('clicking an entry in an unfocused pane focuses the pane and selects the en
   await expect(first).toHaveClass(/selected/);
   await expect(first.locator('[data-entry-details]')).toBeVisible();
 });
+
+test('t cycles theme and persists across reload', async ({ page }) => {
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'andromeda');
+  await page.keyboard.press('t');
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'catppuccin-mocha');
+  await expect(page.locator('[data-theme-label]')).toHaveText('catppuccin-mocha');
+  await page.reload();
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'catppuccin-mocha');
+});
+
+test('clicking the status-bar theme button cycles theme', async ({ page }) => {
+  await page.locator('[data-action="theme"]').click();
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'catppuccin-mocha');
+});

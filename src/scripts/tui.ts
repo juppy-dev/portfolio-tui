@@ -79,6 +79,32 @@ document.querySelectorAll<HTMLElement>('[data-entry] .entry-line').forEach((line
   })
 );
 
+// ---- theme switcher ----
+const THEMES = [
+  'andromeda',
+  'catppuccin-mocha',
+  'gruvbox-dark',
+  'tokyo-night',
+  'green-phosphor',
+];
+
+function syncThemeLabel(): void {
+  const label = document.querySelector('[data-theme-label]');
+  if (label) label.textContent = document.documentElement.dataset.theme ?? THEMES[0];
+}
+
+function cycleTheme(): void {
+  const current = document.documentElement.dataset.theme ?? THEMES[0];
+  const next = THEMES[(THEMES.indexOf(current) + 1) % THEMES.length];
+  document.documentElement.dataset.theme = next;
+  localStorage.setItem('theme', next);
+  syncThemeLabel();
+}
+
+document
+  .querySelector('[data-action="theme"]')
+  ?.addEventListener('click', cycleTheme);
+
 // ---- keyboard map ----
 document.addEventListener('keydown', (e) => {
   if (isTyping(e)) return; // never steal keys from form fields
@@ -110,6 +136,9 @@ document.addEventListener('keydown', (e) => {
       toggleSelected();
       break;
     }
+    case 't':
+      cycleTheme();
+      break;
     case 'd':
       if (activeTab() === 'experience') {
         document.querySelector<HTMLAnchorElement>('#resume-link')?.click();
@@ -120,3 +149,4 @@ document.addEventListener('keydown', (e) => {
 
 // ---- init ----
 focusPane(0);
+syncThemeLabel();
