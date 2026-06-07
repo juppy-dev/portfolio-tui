@@ -15,3 +15,6 @@ dist/
 .astro/
 playwright-report/
 test-results/
+
+# ai agent artifacts
+.claude/
