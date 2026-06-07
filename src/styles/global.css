@@ -121,6 +121,11 @@ kbd {
   color: var(--dim);
 }
 
+/* keep "CET 14:23 · NORMAL" on one line in the status bar */
+.status-bar > span:last-child {
+  white-space: nowrap;
+}
+
 /* ---- pane grid ---- */
 .grid {
   display: grid;
