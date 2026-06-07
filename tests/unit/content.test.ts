@@ -24,10 +24,10 @@ describe('content helpers', () => {
     expect(Array.isArray(about.links)).toBe(true);
   });
 
-  it('reads now rows and art', async () => {
+  it('reads now rows and badge color', async () => {
     const now = await getNow();
     expect(now.rows.length).toBeGreaterThan(0);
-    expect(typeof now.art).toBe('string');
+    expect(now.artColor).toBeTruthy();
   });
 
   it('sorts projects by year descending', async () => {
@@ -92,8 +92,14 @@ describe('content helpers', () => {
     const certs = await getCertifications();
     expect(certs.length).toBeGreaterThan(0);
     expect(certs[0].name).toBeTruthy();
+    expect(certs.every((c) => c.category)).toBe(true);
     const edu = await getEducation();
     expect(edu.length).toBeGreaterThan(0);
     expect(edu[0].degree).toBeTruthy();
+  });
+
+  it('highlights carry categories for the sidebar grouping', async () => {
+    const highlights = await getHighlights();
+    expect(highlights.every((h) => h.category)).toBe(true);
   });
 });

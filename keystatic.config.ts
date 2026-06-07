@@ -37,13 +37,8 @@ export default config({
       path: 'content/now',
       format: { data: 'yaml' },
       schema: {
-        art: fields.text({
-          label: 'ASCII art',
-          multiline: true,
-          description: 'Rendered beside the rows, macchina-style. Leave empty for none.',
-        }),
         artColor: fields.select({
-          label: 'Art color',
+          label: 'Badge color',
           options: [
             { label: 'Accent', value: 'accent' },
             { label: 'Cyan', value: 'cyan' },
@@ -67,6 +62,10 @@ export default config({
           fields.object({
             text: fields.text({ label: 'Highlight' }),
             year: fields.text({ label: 'Year' }),
+            category: fields.text({
+              label: 'Category',
+              description: 'e.g. engineering, leadership, speaking — groups the sidebar',
+            }),
           }),
           { label: 'Highlights', itemLabel: (props) => props.fields.text.value }
         ),
@@ -129,6 +128,10 @@ export default config({
             name: fields.text({ label: 'Name' }),
             issuer: fields.text({ label: 'Issuer' }),
             year: fields.text({ label: 'Year' }),
+            category: fields.text({
+              label: 'Category',
+              description: 'e.g. cloud, ai, engineering — groups the sidebar',
+            }),
           }),
           { label: 'Certifications', itemLabel: (props) => props.fields.name.value }
         ),

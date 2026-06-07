@@ -1,13 +1,22 @@
 items:
   - text: Scaled a realtime collaboration platform from 10k to 1.2M monthly users without a single full outage
     year: '2024'
+    category: engineering
   - text: Led the TypeScript + monorepo migration for a 40-engineer org — build times down 70%
     year: '2023'
-  - text: Open-sourced codegraph; 2.1k GitHub stars and adopted by three companies I know of
-    year: '2026'
-  - text: Spoke at ViteConf on incremental adoption of Rust tooling in JS pipelines
-    year: '2025'
+    category: engineering
   - text: Shipped a payments integration processing $30M/yr in its first year
     year: '2021'
+    category: engineering
+  - text: Open-sourced codegraph; 2.1k GitHub stars and adopted by three companies I know of
+    year: '2026'
+    category: open source
+  - text: Spoke at ViteConf on incremental adoption of Rust tooling in JS pipelines
+    year: '2025'
+    category: speaking
   - text: Mentored six juniors who are now seniors — still my proudest metric
     year: '2022'
+    category: leadership
+  - text: Ran the developer-experience guild that cut median PR cycle time from 2 days to 4 hours
+    year: '2024'
+    category: leadership

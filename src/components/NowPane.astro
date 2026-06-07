@@ -1,5 +1,6 @@
 ---
 import Pane from './Pane.astro';
+import Icon from './Icon.astro';
 import { getNow } from '../lib/content';
 import { cycleColor } from '../lib/palette';
 
@@ -8,9 +9,9 @@ const now = await getNow();
 
 <Pane title="now" id="now" icon="activity">
   <div class="now">
-    {now.art && (
-      <pre class="now-art" aria-hidden="true" style={`color: var(--${now.artColor})`}>{now.art}</pre>
-    )}
+    <div class="now-badge" style={`--badge-color: var(--${now.artColor})`} aria-hidden="true">
+      <Icon name="sparkle" size={26} />
+    </div>
     <dl class="kv">
       {now.rows.map((row, i) => (
         <>

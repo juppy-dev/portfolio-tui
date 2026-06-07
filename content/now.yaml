@@ -1,9 +1,3 @@
-art: |-
-  .--==--.
-    |  |
-    |  |
-    |  |
-  '--==--'
 artColor: accent
 rows:
   - key: Building

@@ -2,6 +2,16 @@ items:
   - name: AWS Solutions Architect — Associate
     issuer: Amazon Web Services
     year: '2022'
+    category: cloud
   - name: CKA (Certified Kubernetes Administrator)
     issuer: CNCF
     year: '2023'
+    category: cloud
+  - name: Deep Learning Specialization
+    issuer: Coursera / DeepLearning.AI
+    year: '2024'
+    category: ai
+  - name: Anthropic Certified Claude Developer
+    issuer: Anthropic
+    year: '2026'
+    category: ai
