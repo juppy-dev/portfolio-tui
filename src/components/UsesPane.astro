@@ -1,0 +1,18 @@
+---
+import Pane from './Pane.astro';
+import { getUses } from '../lib/content';
+
+const rows = await getUses();
+---
+
+<Pane title="uses" id="uses" icon="monitor">
+  {rows.length === 0 && <p class="dim">// nothing here yet</p>}
+  <dl class="kv">
+    {rows.map((row) => (
+      <>
+        <dt>{row.key}</dt>
+        <dd>{row.value}</dd>
+      </>
+    ))}
+  </dl>
+</Pane>

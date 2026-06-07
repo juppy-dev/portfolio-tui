@@ -140,7 +140,7 @@ kbd {
 #pane-about  { grid-area: about; }
 #pane-now    { grid-area: now; }
 #pane-ps     { grid-area: ps; }
-#pane-work   { grid-area: work; min-height: 480px; }
+#pane-work   { grid-area: work; }
 #pane-tech   { grid-area: tech; }
 #pane-uses   { grid-area: uses; }
 #pane-vitals { grid-area: vitals; }

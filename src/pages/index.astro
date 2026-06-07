@@ -10,6 +10,9 @@ import ContactDialog from '../components/ContactDialog.astro';
 import HelpDialog from '../components/HelpDialog.astro';
 import Icon from '../components/Icon.astro';
 import Hero from '../components/Hero.astro';
+import UsesPane from '../components/UsesPane.astro';
+import VitalsPane from '../components/VitalsPane.astro';
+import PsPane from '../components/PsPane.astro';
 import { getAbout, getTech } from '../lib/content';
 import { cycleColor } from '../lib/palette';
 
@@ -63,6 +66,8 @@ const title = `${user}@portfolio`;
 
         <NowPane />
 
+        <PsPane />
+
         <WorkPane />
 
         <Pane title="tech" id="tech" icon="cpu">
@@ -76,6 +81,10 @@ const title = `${user}@portfolio`;
             </div>
           ))}
         </Pane>
+
+        <UsesPane />
+
+        <VitalsPane />
       </main>
 
       <footer class="bar status-bar">

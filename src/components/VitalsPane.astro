@@ -1,0 +1,39 @@
+---
+import Pane from './Pane.astro';
+import { getVitals } from '../lib/content';
+
+const vitals = await getVitals();
+// Alpha steps for heatmap intensities 0-4.
+const ALPHAS = [8, 25, 45, 70, 95];
+---
+
+<Pane title="vitals" id="vitals" icon="pulse">
+  {!vitals && <p class="dim">// nothing here yet</p>}
+  {
+    vitals && (
+      <>
+        <dl class="kv">
+          {vitals.rows.map((row) => (
+            <>
+              <dt>{row.key}</dt>
+              <dd>{row.value}</dd>
+            </>
+          ))}
+        </dl>
+        {vitals.heatmap.length > 0 && (
+          <div class="heatmap">
+            <span class="dim heatmap-label">{vitals.heatmapLabel}</span>
+            <div>
+              {vitals.heatmap.map((v) => (
+                <span
+                  class="hm-cell"
+                  style={`background: color-mix(in srgb, var(--accent) ${ALPHAS[Math.min(Math.max(v, 0), 4)]}%, transparent)`}
+                />
+              ))}
+            </div>
+          </div>
+        )}
+      </>
+    )
+  }
+</Pane>

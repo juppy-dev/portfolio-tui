@@ -1,0 +1,19 @@
+---
+import Pane from './Pane.astro';
+import { getProcesses } from '../lib/content';
+
+const procs = await getProcesses();
+---
+
+<Pane title="ps aux | grep side-projects" id="ps" icon="terminal">
+  {procs.length === 0 && <p class="dim">// nothing here yet</p>}
+  <ul class="ps-list">
+    {procs.map((p) => (
+      <li>
+        <span class={`ps-state ps-${p.state}`}>{p.state}</span>
+        <span>{p.name}</span>
+        <span class="dim"> {p.note}</span>
+      </li>
+    ))}
+  </ul>
+</Pane>
