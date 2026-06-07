@@ -17,7 +17,7 @@ function focusPane(i: number): void {
 panes.forEach((p, i) => p.addEventListener('click', () => focusPane(i)));
 
 // ---- tabs ----
-const TAB_ORDER = ['projects', 'experience', 'highlights'];
+const TAB_ORDER = ['projects', 'experience', 'highlights', 'certification', 'education'];
 const tabButtons = [...document.querySelectorAll<HTMLButtonElement>('[data-tab]')];
 
 function activeTab(): string {
@@ -157,6 +157,8 @@ document.addEventListener('keydown', (e) => {
     case '1':
     case '2':
     case '3':
+    case '4':
+    case '5':
       switchTab(TAB_ORDER[Number(e.key) - 1]);
       break;
     case 'j':

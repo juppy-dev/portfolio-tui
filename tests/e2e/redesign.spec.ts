@@ -29,6 +29,15 @@ test('vitals heatmap renders intensity cells', async ({ page }) => {
   expect(await page.locator('.hm-cell').count()).toBeGreaterThan(10);
 });
 
+test('keys 4 and 5 reach certification and education sections', async ({ page }) => {
+  await page.keyboard.press('4');
+  await expect(page.locator('[data-tab-panel="certification"]')).toBeVisible();
+  await expect(page.locator('[data-tab-panel="certification"]')).toContainText('AWS');
+  await page.keyboard.press('5');
+  await expect(page.locator('[data-tab-panel="education"]')).toBeVisible();
+  await expect(page.locator('[data-tab-panel="certification"]')).toBeHidden();
+});
+
 test('status bar clock shows the time', async ({ page }) => {
   await expect(page.locator('[data-clock]')).toHaveText(/CES?T \d{2}:\d{2}/);
 });

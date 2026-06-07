@@ -1,20 +1,28 @@
 ---
 import Pane from './Pane.astro';
 import Icon from './Icon.astro';
-import { getExperience, getHighlights, getProjects } from '../lib/content';
+import {
+  getCertifications,
+  getEducation,
+  getExperience,
+  getHighlights,
+  getProjects,
+} from '../lib/content';
 import { cycleColor } from '../lib/palette';
 
 const projects = await getProjects();
 const experience = await getExperience();
 const highlights = await getHighlights();
-const tabs = ['projects', 'experience', 'highlights'] as const;
+const certifications = await getCertifications();
+const education = await getEducation();
+const tabs = ['projects', 'experience', 'highlights', 'certification', 'education'] as const;
 ---
 
 <Pane title="work" id="work" icon="folder">
   <div class="tabs" role="tablist" aria-label="work sections">
     {tabs.map((tab, i) => (
       <button role="tab" id={`tab-${tab}`} data-tab={tab} aria-selected={i === 0 ? 'true' : 'false'} aria-controls={`panel-${tab}`}>
-        {tab}
+        <span class="tab-num dim">{i + 1}</span>{tab}
       </button>
     ))}
   </div>
@@ -69,6 +77,32 @@ const tabs = ['projects', 'experience', 'highlights'] as const;
         <li>
           <span style={`color: var(--${cycleColor(i)})`}>★</span> {h.text}
           {h.year && <span class="year"> {h.year}</span>}
+        </li>
+      ))}
+    </ul>
+  </div>
+
+  <div data-tab-panel="certification" role="tabpanel" id="panel-certification" aria-labelledby="tab-certification" hidden>
+    {certifications.length === 0 && <p class="dim">// nothing here yet</p>}
+    <ul class="entries">
+      {certifications.map((c) => (
+        <li>
+          <span class="marker">▸</span> {c.name}
+          {c.issuer && <span class="dim"> @ {c.issuer}</span>}
+          {c.year && <span class="year"> {c.year}</span>}
+        </li>
+      ))}
+    </ul>
+  </div>
+
+  <div data-tab-panel="education" role="tabpanel" id="panel-education" aria-labelledby="tab-education" hidden>
+    {education.length === 0 && <p class="dim">// nothing here yet</p>}
+    <ul class="entries">
+      {education.map((e) => (
+        <li>
+          <span class="marker">▸</span> {e.degree}
+          {e.school && <span class="dim"> @ {e.school}</span>}
+          {e.period && <span class="year"> {e.period}</span>}
         </li>
       ))}
     </ul>
