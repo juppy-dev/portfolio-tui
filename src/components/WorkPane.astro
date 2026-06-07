@@ -11,13 +11,13 @@ const tabs = ['projects', 'experience', 'highlights'] as const;
 <Pane title="work" id="work">
   <div class="tabs" role="tablist" aria-label="work sections">
     {tabs.map((tab, i) => (
-      <button role="tab" data-tab={tab} aria-selected={i === 0 ? 'true' : 'false'}>
+      <button role="tab" id={`tab-${tab}`} data-tab={tab} aria-selected={i === 0 ? 'true' : 'false'} aria-controls={`panel-${tab}`}>
         {i + 1}:{tab}
       </button>
     ))}
   </div>
 
-  <div data-tab-panel="projects" role="tabpanel">
+  <div data-tab-panel="projects" role="tabpanel" id="panel-projects" aria-labelledby="tab-projects">
     {projects.length === 0 && <p class="dim">// nothing here yet</p>}
     <ul class="entries">
       {projects.map((p) => (
@@ -42,7 +42,7 @@ const tabs = ['projects', 'experience', 'highlights'] as const;
     </ul>
   </div>
 
-  <div data-tab-panel="experience" role="tabpanel" hidden>
+  <div data-tab-panel="experience" role="tabpanel" id="panel-experience" aria-labelledby="tab-experience" hidden>
     <p><a id="resume-link" href="/resume.pdf" download>[↓ resume.pdf]</a> <span class="dim desktop-hints">(or press d)</span></p>
     {experience.length === 0 && <p class="dim">// nothing here yet</p>}
     <ul class="entries">
@@ -60,7 +60,7 @@ const tabs = ['projects', 'experience', 'highlights'] as const;
     </ul>
   </div>
 
-  <div data-tab-panel="highlights" role="tabpanel" hidden>
+  <div data-tab-panel="highlights" role="tabpanel" id="panel-highlights" aria-labelledby="tab-highlights" hidden>
     {highlights.length === 0 && <p class="dim">// nothing here yet</p>}
     <ul class="entries">
       {highlights.map((h) => (

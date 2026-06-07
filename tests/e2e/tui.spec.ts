@@ -43,3 +43,12 @@ test('clicking an entry expands it', async ({ page }) => {
   await first.locator('.entry-line').click();
   await expect(first.locator('[data-entry-details]')).toBeVisible();
 });
+
+test('clicking an entry in an unfocused pane focuses the pane and selects the entry', async ({ page }) => {
+  // pane-about is focused by default; click straight into the work pane
+  const first = page.locator('[data-tab-panel="projects"] [data-entry]').first();
+  await first.locator('.entry-line').click();
+  await expect(page.locator('#pane-work')).toHaveClass(/focused/);
+  await expect(first).toHaveClass(/selected/);
+  await expect(first.locator('[data-entry-details]')).toBeVisible();
+});

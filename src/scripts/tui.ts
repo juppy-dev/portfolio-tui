@@ -71,6 +71,8 @@ function toggleSelected(): void {
 
 document.querySelectorAll<HTMLElement>('[data-entry] .entry-line').forEach((line) =>
   line.addEventListener('click', () => {
+    const paneEl = line.closest<HTMLElement>('[data-pane]')!;
+    focusPane(panes.indexOf(paneEl));
     const entry = line.closest<HTMLElement>('[data-entry]')!;
     visibleEntries().forEach((el) => el.classList.toggle('selected', el === entry));
     toggleEntry(entry);
@@ -102,9 +104,12 @@ document.addEventListener('keydown', (e) => {
       e.preventDefault();
       moveSelection(-1);
       break;
-    case 'Enter':
+    case 'Enter': {
+      // Native activation owns Enter when a button/link is focused.
+      if ((e.target as HTMLElement).closest?.('button, a')) break;
       toggleSelected();
       break;
+    }
     case 'd':
       if (activeTab() === 'experience') {
         document.querySelector<HTMLAnchorElement>('#resume-link')?.click();
