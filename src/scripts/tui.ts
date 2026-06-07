@@ -137,6 +137,13 @@ contactForm?.addEventListener('submit', async (e) => {
   }
 });
 
+// ---- help dialog ----
+const helpDialog = document.querySelector<HTMLDialogElement>('#help-dialog');
+
+document
+  .querySelector('[data-action="help"]')
+  ?.addEventListener('click', () => helpDialog?.showModal());
+
 // ---- keyboard map ----
 document.addEventListener('keydown', (e) => {
   if (isTyping(e)) return; // never steal keys from form fields
@@ -174,6 +181,9 @@ document.addEventListener('keydown', (e) => {
       break;
     case 't':
       cycleTheme();
+      break;
+    case '?':
+      helpDialog?.showModal();
       break;
     case 'd':
       if (activeTab() === 'experience') {

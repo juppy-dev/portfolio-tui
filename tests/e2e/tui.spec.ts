@@ -106,3 +106,12 @@ test('failed submit shows mailto fallback', async ({ page }) => {
   await expect(page.locator('#contact-status')).toContainText('failed');
   await expect(page.locator('#contact-status a')).toHaveAttribute('href', /^mailto:/);
 });
+
+test('? opens help overlay listing keys; Esc closes', async ({ page }) => {
+  await page.keyboard.press('?');
+  await expect(page.locator('#help-dialog')).toBeVisible();
+  await expect(page.locator('#help-dialog')).toContainText('tab');
+  await expect(page.locator('#help-dialog')).toContainText('theme');
+  await page.keyboard.press('Escape');
+  await expect(page.locator('#help-dialog')).toBeHidden();
+});

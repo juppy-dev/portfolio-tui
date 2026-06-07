@@ -5,6 +5,7 @@ import Pane from '../components/Pane.astro';
 import NowPane from '../components/NowPane.astro';
 import WorkPane from '../components/WorkPane.astro';
 import ContactDialog from '../components/ContactDialog.astro';
+import HelpDialog from '../components/HelpDialog.astro';
 import { getAbout, getTech } from '../lib/content';
 
 const about = await getAbout();
@@ -80,6 +81,7 @@ const title = `${user}@portfolio`;
     </div>
 
     <ContactDialog />
+    <HelpDialog />
 
     <script>
       import '../scripts/tui.ts';
