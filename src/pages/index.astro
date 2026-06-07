@@ -1,9 +1,12 @@
 ---
 import '../styles/themes.css';
 import '../styles/global.css';
-import { getAbout } from '../lib/content';
+import Pane from '../components/Pane.astro';
+import NowPane from '../components/NowPane.astro';
+import { getAbout, getTech } from '../lib/content';
 
 const about = await getAbout();
+const tech = await getTech();
 const user = about.name.toLowerCase();
 ---
 
@@ -36,7 +39,28 @@ const user = about.name.toLowerCase();
       </header>
 
       <main class="grid">
-        <!-- panes land here in Tasks 5-6 -->
+        <Pane title="about" id="about">
+          <p style="white-space: pre-line">{about.intro}<span class="intro-cursor"></span></p>
+          <p>
+            {about.links.map((l) => (
+              <a href={l.url}>[{l.label}]</a>
+            ))}
+          </p>
+        </Pane>
+
+        <NowPane />
+
+        <Pane title="tech" id="tech">
+          {tech.length === 0 && <p class="dim">// nothing here yet</p>}
+          {tech.map((group) => (
+            <div class="tech-group">
+              <span class="label">{group.name}</span>
+              {group.items.map((item) => (
+                <span class="badge">{item}</span>
+              ))}
+            </div>
+          ))}
+        </Pane>
       </main>
 
       <footer class="bar status-bar">

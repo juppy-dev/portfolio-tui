@@ -1,0 +1,22 @@
+---
+import Pane from './Pane.astro';
+import { getNow } from '../lib/content';
+
+const now = await getNow();
+---
+
+<Pane title="now" id="now">
+  <div class="now">
+    {now.art && (
+      <pre class="now-art" aria-hidden="true" style={`color: var(--${now.artColor})`}>{now.art}</pre>
+    )}
+    <dl class="now-rows">
+      {now.rows.map((row) => (
+        <>
+          <dt>{row.key}</dt>
+          <dd>{row.value}</dd>
+        </>
+      ))}
+    </dl>
+  </div>
+</Pane>
