@@ -1,10 +1,9 @@
-art: |2-
-  ╭───────────╮
-  │ >_ ▮      │
-  │           │
-  │  make it  │
-  │   work    │
-  ╰───────────╯
+art: |-
+  .--==--.
+    |  |
+    |  |
+    |  |
+  '--==--'
 artColor: accent
 rows:
   - key: Building
