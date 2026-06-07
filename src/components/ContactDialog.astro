@@ -5,12 +5,16 @@ const email = 'paolo@onearrow.io';
 
 <dialog id="contact-dialog" aria-label="contact form">
   <h2>// contact</h2>
+  <p class="form-note dim">
+    Got a project, a role, or just want to say hi? Typical response within
+    1–2 days — or <a href={`mailto:${email}`}>email me directly</a>.
+  </p>
   <form id="contact-form" method="dialog" data-email={email}>
     <input type="hidden" name="access_key" value={accessKey} />
     <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" />
-    <input name="name" placeholder="name" required autocomplete="name" />
-    <input name="email" type="email" placeholder="email" required autocomplete="email" />
-    <textarea name="message" placeholder="message" rows="5" required></textarea>
+    <input name="name" placeholder="Ada Lovelace" required autocomplete="name" />
+    <input name="email" type="email" placeholder="ada@example.com" required autocomplete="email" />
+    <textarea name="message" placeholder="What are we building?" rows="5" required></textarea>
     <div class="form-actions">
       <span id="contact-status" role="status"></span>
       <span>
