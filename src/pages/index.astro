@@ -13,13 +13,32 @@ import Hero from '../components/Hero.astro';
 import UsesPane from '../components/UsesPane.astro';
 import VitalsPane from '../components/VitalsPane.astro';
 import PsPane from '../components/PsPane.astro';
-import { getAbout, getTech } from '../lib/content';
+import { getAbout, getTech, getHero } from '../lib/content';
 import { cycleColor } from '../lib/palette';
 
 const about = await getAbout();
 const tech = await getTech();
-const user = about.name.toLowerCase();
-const title = `${user}@portfolio`;
+const hero = await getHero();
+
+// SEO / social. `site` is set in astro.config; fall back so dev never throws.
+const SITE = Astro.site ?? new URL('https://juppy.dev');
+const canonical = new URL(Astro.url.pathname, SITE).href;
+const ogImage = new URL('/og.png', SITE).href;
+const title = 'hello@juppy.dev';
+const tagline = hero?.tagline ?? 'software engineer';
+const description = `${about.name} — ${tagline}`;
+// Tab title stays playful; social cards lead with name + role for richer unfurls.
+const socialTitle = `${about.name} — ${tagline.split('·')[0].trim()}`;
+const sameAs = about.links.filter((l) => l.url.startsWith('http')).map((l) => l.url);
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: about.name,
+  url: SITE.href,
+  email: 'hello@juppy.dev',
+  jobTitle: tagline,
+  sameAs,
+};
 
 // Split the about intro into paragraphs of text/code segments.
 // `backtick` spans become highlighted code; done here (plain TS) because a
@@ -52,8 +71,33 @@ const LINK_ICONS: Record<string, string> = {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content={`${about.name} — portfolio`} />
     <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content={about.name} />
+    <link rel="canonical" href={canonical} />
+    <meta name="theme-color" content="#16161e" />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={about.name} />
+    <meta property="og:title" content={socialTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={description} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={socialTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />
+
     <script is:inline>
       // Apply persisted theme + skip boot before first paint (no flash).
       const t = localStorage.getItem('theme');
@@ -71,7 +115,7 @@ const LINK_ICONS: Record<string, string> = {
 
     <div class="app">
       <header class="bar">
-        <span><span class="ok">●</span> {user}@portfolio</span>
+        <span><span class="ok">●</span> hello@juppy.dev</span>
         <button class="hire-me" data-action="contact">hire me <kbd>c</kbd></button>
       </header>
 
