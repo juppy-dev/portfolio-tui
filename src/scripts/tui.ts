@@ -146,6 +146,14 @@ contactForm?.addEventListener('submit', async (e) => {
   }
 });
 
+// Enter submits; Shift+Enter inserts a newline (textarea would otherwise eat Enter).
+contactForm?.querySelector('textarea')?.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    contactForm?.requestSubmit();
+  }
+});
+
 // ---- help dialog ----
 const helpDialog = document.querySelector<HTMLDialogElement>('#help-dialog');
 
