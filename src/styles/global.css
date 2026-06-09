@@ -222,6 +222,14 @@ kbd {
   overflow: auto;
 }
 
+/* uses + side-projects centre their content in the spare vertical space */
+#pane-uses .pane-body,
+#pane-ps .pane-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .pane:focus {
   outline: none;
 }
@@ -301,9 +309,9 @@ kbd {
 /* ---- tabs ---- */
 .tabs {
   display: flex;
-  gap: 1.1rem;
+  gap: 1.8rem;
   border-bottom: 1px solid var(--glass-border);
-  margin-bottom: 0.6rem;
+  margin-bottom: 1.1rem;
 }
 
 .tabs [role='tab'] {
@@ -340,6 +348,7 @@ kbd {
 .tab-num {
   margin-right: 0.45em;
   font-size: 0.85em;
+  opacity: 0.5;
 }
 
 /* lazygit-style sub-navigation INSIDE each work tab panel:
