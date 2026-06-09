@@ -347,7 +347,7 @@ kbd {
    Collapses to a wrapped chip row above the content on mobile. */
 .sub-layout {
   display: grid;
-  grid-template-columns: 190px minmax(0, 1fr);
+  grid-template-columns: max-content minmax(0, 1fr);
   column-gap: 1.1rem;
   align-items: start;
 }
@@ -449,6 +449,7 @@ kbd {
 /* roomier sub-rail items; active item's marker shifts to the green accent */
 .subnav .entry-line {
   padding: 8px 10px;
+  white-space: nowrap;
 }
 
 .subnav [data-entry].selected .marker {
