@@ -5,13 +5,36 @@ import { getNow } from '../lib/content';
 import { cycleColor } from '../lib/palette';
 
 const now = await getNow();
+
+// Rainbow Apple logo (the canonical neofetch art — lighter edge glyphs give a
+// crisp silhouette). Each line is tinted with a theme token so the logo
+// recolors with the active theme: green → yellow → red → violet → blue.
+const appleArt: [string, string][] = [
+  ['green', "                 'c."],
+  ['green', '              ,xNMM.'],
+  ['green', '            .OMMMMo'],
+  ['green', '            OMMM0,'],
+  ['green', "  .;loddo:' loolloddol;."],
+  ['green', 'cKMMMMMMMMMMNWMMMMMMMMMM0:'],
+  ['yellow', '.KMMMMMMMMMMMMMMMMMMMMMMMWd.'],
+  ['yellow', 'XMMMMMMMMMMMMMMMMMMMMMMMX.'],
+  ['red', ';MMMMMMMMMMMMMMMMMMMMMMMM:'],
+  ['red', ':MMMMMMMMMMMMMMMMMMMMMMMM:'],
+  ['red', '.MMMMMMMMMMMMMMMMMMMMMMMMX.'],
+  ['red', 'kMMMMMMMMMMMMMMMMMMMMMMMMWd.'],
+  ['violet', '.XMMMMMMMMMMMMMMMMMMMMMMMMMMk'],
+  ['violet', ' .XMMMMMMMMMMMMMMMMMMMMMMMMK.'],
+  ['blue', '   kMMMMMMMMMMMMMMMMMMMMMMd'],
+  ['blue', '    ;KMMMMMMMWXXWMMMMMMMk.'],
+  ['blue', '      .cooc,.    .,coo:.'],
+];
 ---
 
 <Pane title="now" id="now" icon="activity">
   <div class="now">
-    <div class="now-badge" style={`--badge-color: var(--${now.artColor})`} aria-hidden="true">
-      <Icon name="sparkle" size={26} />
-    </div>
+    <pre class="now-art" aria-hidden="true">{appleArt.map(([color, line], i) => (
+      <span style={`color: var(--${color})`}>{line}{i < appleArt.length - 1 ? '\n' : ''}</span>
+    ))}</pre>
     <dl class="kv">
       {now.rows.map((row, i) => (
         <>
