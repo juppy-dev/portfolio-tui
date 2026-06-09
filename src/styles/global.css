@@ -929,23 +929,41 @@ dialog textarea:focus {
     display: none;
   }
 
-  /* the sub-rail becomes a wrapped chip row above the content */
+  /* the sub-rail becomes a horizontal scroll strip of chips above the content */
   .sub-layout {
     display: block;
   }
 
   .subnav {
     display: flex;
-    flex-wrap: wrap;
-    gap: 2px 0.4rem;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 0.4rem;
     border-right: none;
     border-bottom: 1px solid var(--glass-border);
-    padding: 0 0 0.4rem;
-    margin-bottom: 0.6rem;
+    padding: 0 0 0.6rem;
+    margin-bottom: 0.7rem;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .subnav::-webkit-scrollbar {
+    display: none;
   }
 
   .subnav > li {
     margin-bottom: 0;
+    flex: 0 0 auto;
+  }
+
+  /* discrete chips so the strip reads as tappable, swipeable items */
+  .subnav .entry-line {
+    border: 1px solid var(--glass-border);
+    background: color-mix(in srgb, var(--fg) 3%, transparent);
+  }
+
+  .subnav [data-entry].selected > .entry-line {
+    border-color: color-mix(in srgb, var(--accent) 45%, transparent);
   }
 }
 
