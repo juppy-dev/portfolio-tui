@@ -881,6 +881,12 @@ dialog textarea:focus {
     grid-template-areas: 'hero' 'about' 'now' 'ps' 'work' 'tech' 'uses' 'vitals';
   }
 
+  /* let items shrink to the column instead of stretching to their widest
+     child (the nowrap chip strip), so it scrolls instead of widening the page */
+  .grid > * {
+    min-width: 0;
+  }
+
   /* stack into two centered rows: buttons, then clock + mode below */
   .status-bar {
     position: sticky;
