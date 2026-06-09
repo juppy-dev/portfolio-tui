@@ -881,9 +881,27 @@ dialog textarea:focus {
     grid-template-areas: 'hero' 'about' 'now' 'ps' 'work' 'tech' 'uses' 'vitals';
   }
 
+  /* stack into two centered rows: buttons, then clock + mode below */
   .status-bar {
     position: sticky;
     bottom: 10px;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .status-bar .hints {
+    justify-content: center;
+    flex-wrap: nowrap;
+    gap: 0.6rem;
+  }
+
+  /* kbd shortcuts are meaningless on touch; drop them so the row fits */
+  .status-bar .hints kbd {
+    display: none;
+  }
+
+  .status-bar .hints button {
+    white-space: nowrap;
   }
 
   /* cheaper blur on phone GPUs */
