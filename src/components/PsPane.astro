@@ -7,13 +7,18 @@ const procs = await getProcesses();
 
 <Pane title="ps aux | grep side-projects" id="ps" icon="terminal">
   {procs.length === 0 && <p class="dim">// nothing here yet</p>}
-  <ul class="ps-list">
+  <div class="ps-table">
     {procs.map((p) => (
-      <li>
-        <span class={`ps-state ps-${p.state}`}>{p.state}</span>
-        <span>{p.name}</span>
-        <span class="dim"> {p.note}</span>
-      </li>
+      <>
+        <span class={`ps-state ps-${p.state}`}>
+          <span class="ps-dot" aria-hidden="true" />
+          {p.state}
+        </span>
+        <span class="ps-proc">
+          <span class="ps-name">{p.name}</span>
+          <span class="dim"> {p.note}</span>
+        </span>
+      </>
     ))}
-  </ul>
+  </div>
 </Pane>

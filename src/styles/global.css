@@ -609,20 +609,41 @@ kbd {
 }
 
 /* ---- ps pane ---- */
-.ps-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+.ps-table {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.4rem 0.9rem;
+  align-items: baseline;
   font-size: 0.85rem;
 }
 
-.ps-list li {
-  margin-bottom: 3px;
+.ps-state {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
 }
 
-.ps-state {
-  display: inline-block;
-  min-width: 5.5em;
+.ps-dot {
+  width: 0.55em;
+  height: 0.55em;
+  border-radius: 50%;
+  background: currentColor;
+  flex: none;
+}
+
+/* Running processes get a live, pulsing ring; others stay steady. */
+.ps-running .ps-dot {
+  animation: ps-pulse 1.8s ease-out infinite;
+}
+
+@keyframes ps-pulse {
+  0%   { box-shadow: 0 0 0 0 color-mix(in srgb, currentColor 55%, transparent); }
+  70%  { box-shadow: 0 0 0 5px transparent; }
+  100% { box-shadow: 0 0 0 0 transparent; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ps-running .ps-dot { animation: none; }
 }
 
 .ps-running  { color: var(--green); }
