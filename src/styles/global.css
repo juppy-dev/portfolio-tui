@@ -516,6 +516,18 @@ kbd {
   display: flex;
   gap: 0.85rem;
   align-items: flex-start;
+  /* In the wide bottom strip, center the apple + info block without touching
+     the apple-left / text-left alignment inside it. */
+  width: fit-content;
+  margin-inline: auto;
+}
+
+/* Vertically center that block in the (taller) wide strip — scoped to NOW so
+   other panes keep their default top-aligned body. */
+#pane-now .pane-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 /* Decorative rainbow Apple logo standing in for a device badge. */
