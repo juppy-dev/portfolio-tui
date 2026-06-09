@@ -20,6 +20,11 @@ panes.forEach((p, i) => p.addEventListener('click', () => focusPane(i)));
 const TAB_ORDER = ['projects', 'experience', 'highlights', 'certification'];
 const tabButtons = [...document.querySelectorAll<HTMLButtonElement>('[data-tab]')];
 
+// The pane that owns the Work tabs — number keys (1-4) must focus it, not just
+// switch the tab, or j/k/Enter would keep acting on whatever pane was focused.
+const workPane = tabButtons[0]?.closest<HTMLElement>('[data-pane]') ?? null;
+const workPaneIdx = workPane ? panes.indexOf(workPane) : -1;
+
 function activeTab(): string {
   return tabButtons.find((b) => b.getAttribute('aria-selected') === 'true')?.dataset.tab ?? TAB_ORDER[0];
 }
@@ -175,6 +180,7 @@ document.addEventListener('keydown', (e) => {
     case '2':
     case '3':
     case '4':
+      if (workPaneIdx >= 0) focusPane(workPaneIdx);
       switchTab(TAB_ORDER[Number(e.key) - 1]);
       break;
     case 'j':
