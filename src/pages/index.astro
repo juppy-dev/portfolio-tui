@@ -107,6 +107,13 @@ const LINK_ICONS: Record<string, string> = {
         matchMedia('(prefers-reduced-motion: reduce)').matches
       ) {
         document.documentElement.classList.add('no-boot');
+      } else {
+        // Hide panes/bars pre-paint so the intro can reveal them. Fail-safe:
+        // if the intro module never runs, force the UI visible after 12s.
+        document.documentElement.classList.add('intro');
+        setTimeout(function () {
+          document.documentElement.classList.remove('intro');
+        }, 12000);
       }
     </script>
   </head>
