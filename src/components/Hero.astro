@@ -7,6 +7,7 @@ const hero = await getHero();
 {
   hero && (
     <section class="hero" aria-label="Juppy Arroyo">
+      <canvas class="hero-graph" aria-hidden="true" />
       <p class="hero-prompt dim">$ whoami</p>
       <pre class="hero-art" aria-hidden="true">{hero.art}</pre>
       <span class="hero-art-fallback">Juppy Arroyo</span>

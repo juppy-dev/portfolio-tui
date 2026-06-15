@@ -1,4 +1,5 @@
 import { runIntro } from './intro';
+import './hero-graph';
 
 // ---- helpers ----
 function isTyping(e: KeyboardEvent): boolean {
