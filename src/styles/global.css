@@ -9,10 +9,15 @@ body {
 }
 
 body {
+  /* the "desktop": a faint blueprint grid behind the window, fading at the
+     edges via a vignette. Line color derives from --fg so it recolors per
+     theme. The window (.app) carries the radial tints. */
+  --grid-line: color-mix(in srgb, var(--fg) 5%, transparent);
   background:
-    radial-gradient(circle at 72% 12%, var(--tint-1), transparent 42%),
-    radial-gradient(circle at 22% 85%, var(--tint-2), transparent 46%),
-    radial-gradient(ellipse at 25% 0%, color-mix(in srgb, var(--fg) 7%, var(--bg)) 0%, var(--bg-alt) 62%);
+    radial-gradient(ellipse 120% 120% at 50% 45%, transparent 48%, color-mix(in srgb, var(--bg) 78%, transparent) 100%),
+    repeating-linear-gradient(to right, var(--grid-line) 0 1px, transparent 1px 28px),
+    repeating-linear-gradient(to bottom, var(--grid-line) 0 1px, transparent 1px 28px),
+    var(--bg);
   background-attachment: fixed;
   color: var(--fg);
   font-family: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
@@ -72,12 +77,24 @@ kbd {
 }
 
 /* ---- app frame ---- */
+/* the "window": capped + centered so the desktop grid shows in the margins,
+   lifted off it with a border + soft shadow. Holds the radial tints so the
+   panes keep their glow. */
 .app {
   display: grid;
   grid-template-rows: auto 1fr auto;
   gap: 10px;
-  min-height: 100dvh;
+  max-width: 1280px;
+  margin: 56px auto;
+  min-height: calc(100dvh - 112px);
   padding: 10px;
+  border: 1px solid color-mix(in srgb, var(--fg) 8%, transparent);
+  border-radius: 14px;
+  background:
+    radial-gradient(circle at 72% 12%, var(--tint-1), transparent 42%),
+    radial-gradient(circle at 22% 85%, var(--tint-2), transparent 46%),
+    radial-gradient(ellipse at 25% 0%, color-mix(in srgb, var(--fg) 7%, var(--bg)) 0%, var(--bg-alt) 62%);
+  box-shadow: 0 24px 70px -24px color-mix(in srgb, var(--bg) 88%, #000);
 }
 
 .bar {
@@ -864,9 +881,20 @@ dialog textarea:focus {
 
 /* ---- mobile ---- */
 @media (max-width: 800px) {
+  /* full-bleed on phones: drop the cap + window chrome, the grid is hidden
+     behind the edge-to-edge window. Tints sit tighter to the corners. */
   .app {
     height: auto;
     min-height: 100dvh;
+    max-width: none;
+    margin: 0;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    background:
+      radial-gradient(circle at 80% 5%, var(--tint-1), transparent 30%),
+      radial-gradient(circle at 15% 95%, var(--tint-2), transparent 32%),
+      radial-gradient(ellipse at 25% 0%, color-mix(in srgb, var(--fg) 7%, var(--bg)) 0%, var(--bg-alt) 62%);
   }
 
   /* five sections don't fit one row on a phone */
@@ -917,14 +945,6 @@ dialog textarea:focus {
   dialog {
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
-  }
-
-  body {
-    background:
-      radial-gradient(circle at 80% 5%, var(--tint-1), transparent 30%),
-      radial-gradient(circle at 15% 95%, var(--tint-2), transparent 32%),
-      radial-gradient(ellipse at 25% 0%, color-mix(in srgb, var(--fg) 7%, var(--bg)) 0%, var(--bg-alt) 62%);
-    background-attachment: fixed;
   }
 
   .desktop-hints {
